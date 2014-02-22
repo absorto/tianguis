@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+<DIV style="background: red; color: white;">
+  {{ titulo }}
+  </div>
+{% endblock %}
+
+
+{% block cuerpo %}
+
+<table>
+{% for p in pedidos %}
+
+<tr>
+  <td>{{ p.oferta.producto.nombre }}</td>
+  <td>{{ p.oferta.precio }}</td>
+  <td>{{ p.cantidad }}</td>
+  <td>{{ p.oferta.producto.unidad }}</td>
+</tr>
+
+{% endfor %}
+</table>
+
+{% endblock %}

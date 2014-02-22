@@ -26,7 +26,7 @@ class Oferta(models.Model):
     precio   = models.DecimalField(decimal_places=2, max_digits=5)
 
     def __unicode__(self):
-        return self.producto.nombre
+        return ("%s $%s @%s") % (self.producto.nombre, self.precio, self.vendimia)
 
 class Pedido(models.Model):
     oferta   = models.ForeignKey(Oferta)
@@ -40,8 +40,8 @@ class Pedido(models.Model):
                                 default = 'pendiente' )
     # usuario
     fecha_ordenado  = models.DateTimeField(auto_now_add=True)
-    fecha_entregado = models.DateTimeField()
-    precio_venta    = models.DecimalField(decimal_places=2, max_digits=5)
+    fecha_entregado = models.DateTimeField(blank=True, null=True)
+    precio_venta    = models.DecimalField(decimal_places=2, max_digits=5, blank=True, null=True)
     
     def __unicode__(self):
         return "%s [%s]" % (self.oferta.producto.nombre, self.estado)

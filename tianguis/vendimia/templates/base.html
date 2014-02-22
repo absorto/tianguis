@@ -1,0 +1,20 @@
+{% load staticfiles %}
+
+
+<HTML>
+
+  <BODY>
+    <img src="{% static "vendimia/logo.png" %}" alt="My image"/>
+    
+    {% block title %}
+    <h1>Hola!</h1>
+    {% endblock %}
+
+    <div style="background: #246; color: white;">
+    {% block cuerpo %}
+    No hay mucho para mostrar.
+    {% endblock %}
+    </div>
+  </body>
+
+</HTML>
