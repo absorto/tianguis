@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 import datetime
 
@@ -57,6 +58,7 @@ class Pedido(models.Model):
     oferta   = models.ForeignKey(Oferta)
     cantidad = models.DecimalField(decimal_places=2,
                                    max_digits=5)
+    user = models.ForeignKey(User)
     estado   = models.CharField(max_length=10,
                                 choices = ( ('cancelado', 'cancelado'),
                                             ('pendiente', 'pendiente'),
