@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+
 from django.shortcuts import render_to_response
 from django.shortcuts import render
 
@@ -14,7 +16,7 @@ def adios(request):
     return render_to_response('seccion_a.html', {'saludo': "ba bai"})
 
 
-
+@login_required
 def pedidos(request):
     pedidos = Pedido.objects.all()
     return render_to_response('pedidos.html',
