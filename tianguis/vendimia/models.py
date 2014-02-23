@@ -65,7 +65,7 @@ class Vendimia(models.Model):
 
 
     def liga_a_pedidos(self):
-        return "<a href='%s/pedidos/'>pedidos</a>" % self.id
+        return "<a href='%s/pedidos/'>%s pedidos</a>" % (self.id, len(self.users()))
     liga_a_pedidos.short_description = 'Pedidos'
     liga_a_pedidos.allow_tags = True
 
