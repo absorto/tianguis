@@ -16,7 +16,8 @@ class VendimiaAdmin(admin.ModelAdmin):
                     'cierre',
                     'entrega_inicio',
                     'entrega_fin',
-                    'liga_a_pedidos')
+                    'liga_a_pedidos',
+                    'liga_a_gran_pedido')
 
 admin.site.register( Producto )
 admin.site.register( Vendimia, VendimiaAdmin )

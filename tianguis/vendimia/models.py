@@ -43,6 +43,17 @@ class Vendimia(models.Model):
 
         return " | ".join(status)
 
+    def gran_pedido(self):
+        pedidos = Pedido.objects.filter(oferta__vendimia=self)
+        gp = {}
+        for p in pedidos:
+            if p.oferta.producto in gp:
+                gp[p.oferta.producto] += p.cantidad
+            else:
+                gp[p.oferta.producto] = p.cantidad
+        return gp
+
+
     def users(self):
         return list(set([p.user for p in Pedido.objects.filter(oferta__vendimia=self)]))
 
@@ -57,6 +68,13 @@ class Vendimia(models.Model):
         return "<a href='%s/pedidos/'>pedidos</a>" % self.id
     liga_a_pedidos.short_description = 'Pedidos'
     liga_a_pedidos.allow_tags = True
+
+
+    def liga_a_gran_pedido(self):
+        return "<a href='%s/gran_pedido/'>proveedores</a>" % self.id
+    liga_a_gran_pedido.short_description = 'Gran Pedido'
+    liga_a_gran_pedido.allow_tags = True
+
 
     def __unicode__(self):
         return "%s [%s]" % (self.tienda.nombre, self.status())

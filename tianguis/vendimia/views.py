@@ -16,6 +16,18 @@ def adios(request):
 
 
 @staff_member_required
+def gran_pedido(request, vendimia_id=None):
+    v = Vendimia.objects.get( id = vendimia_id )
+    import pprint
+    pprint.pprint(v.gran_pedido())
+    return render_to_response('gran_pedido.html',
+                              context_instance=RequestContext(request,
+                                                              {'title': 'Gran Pedido: %s' % v,
+                                                               'pedido': v.gran_pedido()}))
+    
+
+
+@staff_member_required
 def pedidos_vendimia(request, vendimia_id=None):
     v = Vendimia.objects.get( id = vendimia_id )
 

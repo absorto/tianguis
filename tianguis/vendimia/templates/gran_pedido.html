@@ -1,0 +1,27 @@
+{% extends 'admin/base_site.html' %}
+{% load i18n %}
+
+
+{% block breadcrumbs %}
+
+<div class="breadcrumbs">
+  <a href="/admin/">
+    {% trans "Home" %}</a>Gran Pedido</div>
+
+{% endblock %}
+
+
+{% block content %}
+
+<ul>
+
+{% for p, cantidad in pedido.items %}
+
+  <li>
+    {{ cantidad }} {{ p.unidad}} {{ p.nombre }}
+  </li>
+{% endfor %}
+</ul>
+
+{% endblock %}
+
