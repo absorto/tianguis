@@ -1,0 +1,27 @@
+{% extends 'admin/base_site.html' %}
+{% load i18n %}
+
+
+{% block breadcrumbs %}
+
+<div class="breadcrumbs">
+  <a href="/admin/">
+    {% trans "Home" %}</a>Pedidos</div>
+
+{% endblock %}
+
+
+{% block content %}
+
+<ul>
+{% for u,pedidos in ordenes.items %}
+  <li>
+    <a href="{{ u.id }}/">{{ u }}</a>
+    {{ pedidos|length }} items
+  </li>
+{% endfor %}
+</ul>
+
+{% endblock %}
+{% block sidebar %}{% endblock %}
+

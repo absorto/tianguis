@@ -1,0 +1,35 @@
+{% extends 'admin/base_site.html' %}
+{% load i18n %}
+
+
+{% block breadcrumbs %}
+
+<div class="breadcrumbs">
+  <a href="/admin/">
+    {% trans "Home" %}</a>Pedidos de {{ user }}</div>
+
+{% endblock %}
+
+
+{% block content %}
+
+<ul>
+{% for p in pedidos %}
+<li>
+  {{ p.cantidad }} {{ p.oferta.producto.unidad }}
+  {{ p.oferta.producto.nombre }}
+  {% if p.estado == 'pendiente' %}
+  Entregado <input type='checkbox' checked="True">
+  precio de venta <input id='algo' value="{{ p.oferta.precio}}">
+  {% else %}
+  precio de venta: {{ p.precio_venta }}
+  {% endif %}
+</li>
+{% endfor %}
+</ul>
+<input type="button" value="pagar">
+
+
+{% endblock %}
+
+{% block sidebar %}{% endblock %}

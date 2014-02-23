@@ -43,8 +43,26 @@ class Vendimia(models.Model):
 
         return " | ".join(status)
 
+    def users(self):
+        return list(set([p.user for p in Pedido.objects.filter(oferta__vendimia=self)]))
+
+    def ordenes(self):
+        ordenes = {}
+        for u in self.users():
+            ordenes[u] = Pedido.objects.filter(oferta__vendimia=self, user=u)
+        return ordenes
+
+
+    def liga_a_pedidos(self):
+        return "<a href='%s/pedidos/'>pedidos</a>" % self.id
+    liga_a_pedidos.short_description = 'Pedidos'
+    liga_a_pedidos.allow_tags = True
+
     def __unicode__(self):
         return "%s [%s]" % (self.tienda.nombre, self.status())
+
+
+
 
 class Oferta(models.Model):
     producto = models.ForeignKey(Producto)
@@ -53,6 +71,10 @@ class Oferta(models.Model):
 
     def __unicode__(self):
         return ("%s $%s @%s") % (self.producto.nombre, self.precio, self.vendimia)
+
+
+    
+
 
 class Pedido(models.Model):
     oferta   = models.ForeignKey(Oferta)
@@ -72,3 +94,5 @@ class Pedido(models.Model):
     
     def __unicode__(self):
         return "%s [%s]" % (self.oferta.producto.nombre, self.estado)
+
+
