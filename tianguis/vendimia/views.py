@@ -23,6 +23,7 @@ def gran_pedido(request, vendimia_id=None):
     return render_to_response('gran_pedido.html',
                               context_instance=RequestContext(request,
                                                               {'title': 'Gran Pedido: %s' % v,
+                                                               'vendimia': v,
                                                                'pedido': v.gran_pedido()}))
     
 
@@ -34,6 +35,7 @@ def pedidos_vendimia(request, vendimia_id=None):
     return render_to_response('pedidos_vendimia.html',
                               context_instance=RequestContext(request,
                                                               {'title': 'Pedidos: %s' % v,
+                                                               'vendimia': v,
                                                                'ordenes': v.ordenes()}))
 
 
@@ -47,5 +49,6 @@ def pedido_vendimia_user(request, vendimia_id, user_id):
     return render_to_response('pedidos_vendimia_usuario.html',
                               context_instance=RequestContext(request,
                                                               {'title': 'Orden: %s @ %s' % (u,v),
+                                                               'vendimia': v,
                                                                'user': u,
                                                                'pedidos': pedidos}))

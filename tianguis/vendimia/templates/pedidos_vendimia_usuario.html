@@ -6,7 +6,10 @@
 
 <div class="breadcrumbs">
   <a href="/admin/">
-    {% trans "Home" %}</a>Pedidos de {{ user }}</div>
+    {% trans "Home" %}</a> > <a href="/admin/vendimia/">Vendimia</a> >
+    <a href="/admin/vendimia/vendimia/">Vendimias</a> > 
+    <a href="/admin/vendimia/vendimia/{{ vendimia.id }}/">{{ vendimia }}</a>
+    > Pedido de {{ user }} </div>
 
 {% endblock %}
 
