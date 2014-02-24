@@ -16,22 +16,30 @@
 
 {% block content %}
 
-<ul>
-{% for p in pedidos %}
-<li>
-  {{ p.cantidad }} {{ p.oferta.producto.unidad }}
-  {{ p.oferta.producto.nombre }}
-  {% if p.estado == 'pendiente' %}
-  Entregado <input type='checkbox' checked="True">
-  precio de venta <input id='algo' value="{{ p.oferta.precio}}">
-  {% else %}
-  precio de venta: {{ p.precio_venta }}
-  {% endif %}
-</li>
-{% endfor %}
-</ul>
-<input type="button" value="pagar">
 
+<form method="POST">
+{% csrf_token %}
+<table>
+  <thead>
+    <th>Cantidad</th>
+    <th>Unidad</th>
+    <th>Producto</th>
+    <th>Precio de Venta</th>
+    <th>Subtotal</th>
+{% for p in pedidos %}
+<tr>
+  <td><input id="cantidad_{{ p.id }}" name="cantidad_{{ p.id }}" value="{{ p.cantidad }}" size="4"></td>
+  <td> {{ p.oferta.producto.unidad }}</td>
+  <td>{{ p.oferta.producto.nombre }}</td>
+  <td>
+    <input id='precio_{{ p.id }}' name='precio_{{ p.id }}' value="{{ p.oferta.precio}}">
+  </td>
+  <td></td>
+</tr>
+{% endfor %}
+</table>
+<input type="submit" value="pagar">
+</form>
 
 {% endblock %}
 
