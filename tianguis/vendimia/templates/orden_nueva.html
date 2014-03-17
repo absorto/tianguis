@@ -1,0 +1,4 @@
+
+{% for o in vendimia.oferta_set.all %}
+{{ o.producto }} <input name="{{ o.producto.id }}"><br />
+{% endfor %}

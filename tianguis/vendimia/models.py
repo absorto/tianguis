@@ -40,17 +40,17 @@ class Vendimia(models.Model):
             status.append( "entregando" )
 
         if now > self.entrega_fin:
-            status.append( "finalizada" )
+            status = [ "finalizada", ]
 
         return status
 
     def __unicode__(self):
         if "recibiendo_ordenes" in self.status():
-            fecha = cierre.strftime('%d %b %Y %H')
+            fecha = cierre.strftime('%d %b %Y %H:%M')
         elif "cerrada" in self.status() and "entregando" in self.status() or "finalizada" in self.status():
-            fecha = self.entrega_fin.strftime('%d %b %Y %H')
+            fecha = self.entrega_fin.strftime('%d %b %Y %H:%M')
         else:
-            fecha = self.entrega_inicio.strftime('%d %b %Y %H:%m')
+            fecha = self.entrega_inicio.strftime('%d %b %Y %H:%M')
 
         return "%s[%s]->[%s]" % (self.tienda.nombre, " | ".join(self.status()), fecha)
 

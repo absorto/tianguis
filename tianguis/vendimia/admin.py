@@ -10,6 +10,11 @@ class PedidoInline(admin.TabularInline):
 class OrdenAdmin(admin.ModelAdmin):
     inlines = [PedidoInline]
     list_filter = ('vendimia',)
+    list_display = ('user',
+                    'estado',
+                    'vendimia',)
+
+
 
 def duplica_vendimia(modeladmin, request, queryset):
     for v in queryset:
