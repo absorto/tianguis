@@ -26,8 +26,7 @@ def pedidos_vendimia(request, vendimia_id=None):
     return render_to_response('pedidos_vendimia.html',
                               context_instance=RequestContext(request,
                                                               {'title': 'Pedidos: %s' % v,
-                                                               'vendimia': v,
-                                                               'ordenes': v.ordenes()}))
+                                                               'vendimia': v,}))
 
 
 

@@ -1,3 +1,4 @@
+#coding: utf-8
 from django.contrib.auth.models import User
 from django.db import models
 import datetime
@@ -31,7 +32,7 @@ class Vendimia(models.Model):
         now = datetime.datetime.now(self.cierre.tzinfo)
         
         if now < self.cierre:
-            status = ["recibiendo pedidos"]
+            status = ["recibiendo ordenes"]
         else:
             status = ["cerrada"]
 
@@ -41,28 +42,31 @@ class Vendimia(models.Model):
         if now > self.entrega_fin:
             status.append( "finalizada" )
 
-        return " | ".join(status)
+        return status
+
+    def __unicode__(self):
+        if "recibiendo_ordenes" in self.status():
+            fecha = cierre.strftime('%d %b %Y %H')
+        elif "cerrada" in self.status() and "entregando" in self.status() or "finalizada" in self.status():
+            fecha = self.entrega_fin.strftime('%d %b %Y %H')
+        else:
+            fecha = self.entrega_inicio.strftime('%d %b %Y %H:%m')
+
+        return "%s[%s]->[%s]" % (self.tienda.nombre, " | ".join(self.status()), fecha)
 
     def gran_pedido(self):
-        pedidos = Pedido.objects.filter(oferta__vendimia=self)
+        pedidos = Pedido.objects.filter(orden__vendimia=self)
         gp = {}
         for p in pedidos:
-            if p.oferta.producto in gp:
-                gp[p.oferta.producto] += p.cantidad
+            if p.producto in gp:
+                gp[p.producto] += p.cantidad
             else:
-                gp[p.oferta.producto] = p.cantidad
+                gp[p.producto] = p.cantidad
         return gp
 
 
     def users(self):
         return list(set([p.user for p in Pedido.objects.filter(oferta__vendimia=self)]))
-
-    def ordenes(self):
-        ordenes = {}
-        for u in self.users():
-            ordenes[u] = Pedido.objects.filter(oferta__vendimia=self, user=u)
-        return ordenes
-
 
     def liga_a_pedidos(self):
         return "<a href='%s/pedidos/'>%s pedidos</a>" % (self.id, len(self.users()))
@@ -76,8 +80,6 @@ class Vendimia(models.Model):
     liga_a_gran_pedido.allow_tags = True
 
 
-    def __unicode__(self):
-        return "%s [%s]" % (self.tienda.nombre, self.status())
 
 
 
@@ -91,26 +93,35 @@ class Oferta(models.Model):
         return ("%s $%s @%s") % (self.producto.nombre, self.precio, self.vendimia)
 
 
-    
 
 
-class Pedido(models.Model):
-    oferta   = models.ForeignKey(Oferta)
-    cantidad = models.DecimalField(decimal_places=2,
-                                   max_digits=5)
-    user = models.ForeignKey(User)
-    estado   = models.CharField(max_length=10,
+
+class Orden(models.Model):
+    fecha           = models.DateTimeField(auto_now_add=True)
+    user            = models.ForeignKey(User)
+    estado          = models.CharField(max_length=10,
                                 choices = ( ('cancelado', 'cancelado'),
                                             ('pendiente', 'pendiente'),
                                             ('entregado', 'entregado'),
                                             ('pagado', 'pagado'), ),
                                 default = 'pendiente' )
-    # usuario
-    fecha_ordenado  = models.DateTimeField(auto_now_add=True)
-    fecha_entregado = models.DateTimeField(blank=True, null=True)
+    vendimia        = models.ForeignKey(Vendimia)
+
+    def __unicode__(self):
+        return "%s %s %s" % (self.user, self.estado, self.vendimia)
+
+    class Meta:
+        verbose_name_plural = "órdenes"
+
+
+class Pedido(models.Model):
+    orden    = models.ForeignKey(Orden)
+    producto = models.ForeignKey(Producto)
+    cantidad = models.DecimalField(decimal_places=2,
+                                   max_digits=5)
+
     precio_venta    = models.DecimalField(decimal_places=2, max_digits=5, blank=True, null=True)
     
-    def __unicode__(self):
-        return "%s [%s]" % (self.oferta.producto.nombre, self.estado)
-
+    # def __unicode__(self):
+    #     return "%s [%s]" % (self.oferta.producto.nombre, self.estado)
 

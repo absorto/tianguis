@@ -8,7 +8,7 @@
   <a href="/admin/">
     {% trans "Home" %}</a> > <a href="/admin/vendimia/">Vendimia</a> >
     <a href="/admin/vendimia/vendimia/">Vendimias</a> > 
-    <a href="/admin/vendimia/vendimia/{{ vendimia.id }}/">{{ vendimia }}</a> > Pedidos</div>
+    <a href="/admin/vendimia/vendimia/{{ vendimia.id }}/">{{ vendimia }}</a> > Ordenes</div>
 
 {% endblock %}
 
@@ -16,7 +16,7 @@
 {% block content %}
 
 <ul>
-{% for u,pedidos in ordenes.items %}
+{% for u,pedidos in vendimia.orden_set.all %}
   <li>
     <a href="{{ u.id }}/">{{ u }}</a>
     {{ pedidos|length }} items
