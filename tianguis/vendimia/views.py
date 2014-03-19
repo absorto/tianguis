@@ -3,6 +3,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import render
+from django.shortcuts import redirect
+
+from decimal import Decimal
 
 from vendimia.models import *
 
@@ -65,6 +68,7 @@ def orden_index(request,vendimia_id):
     return render_to_response('orden_index.html',
                               context_instance=RequestContext(request,
                                                               {'title': 'Mis ordenes para %s' % v,
+                                                               'vendimia': v,
                                                                'ordenes': ordenes,}))
 
 
@@ -72,17 +76,32 @@ def orden_index(request,vendimia_id):
 @login_required
 def orden_nueva (request, vendimia_id):
     v = Vendimia.objects.get (id = vendimia_id)
+    mis_ordenes = v.orden_set.filter(user=request.user)
+
     if request.method == 'GET':
         return render_to_response('orden_nueva.html',
                                   context_instance=RequestContext(request,
                                                                   {'title': 'Orden nueva',
+                                                                   'mis_ordenes': mis_ordenes,
                                                                    'vendimia': v,}))
     elif request.method == 'POST':
         o = Orden.objects.create(user     = request.user,
                                  vendimia = v )
 
+        for p_id in request.POST:
+            if p_id != 'csrfmiddlewaretoken':
+                try:
+                    producto = Producto.objects.get(id=int(p_id.split('_')[1]))
+                    cantidad = Decimal(request.POST[p_id])
+                    Pedido.objects.create(orden=o,
+                                          producto=producto,
+                                          cantidad=cantidad)
+                except:
+                    pass
+
         # redirigir a la orden recien creada
-        
+        return redirect("/vendimia/%s/" % vendimia_id)
+
 
 # url(r'^(?P<vendimia_id>\d)/ordenes/(?P<orden_id>\d)', get_orden),
 @login_required

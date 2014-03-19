@@ -1,4 +1,29 @@
+<!-- perdon por la tabla :-/ no se html :-( -->
+<table>
+<tr>
 
+<td>
+<h2>Nueva orden</h2>
+<form method="POST" action=".">
+{% csrf_token %}
 {% for o in vendimia.oferta_set.all %}
-{{ o.producto }} <input name="{{ o.producto.id }}"><br />
+{{ o.producto }} <input name="p_{{ o.producto.id }}"><br />
 {% endfor %}
+<input type="submit">
+</form>
+</td>
+
+<td>
+<h2>Mis órdenes</h2>
+{% for o in mis_ordenes %}
+{{ o.fecha }} {{ o.estado }}<br />
+<ul>
+  {% for p in o.pedido_set.all %}
+  <li>{{ p.cantidad }} {{ p.producto }}</li>
+  {% endfor %}
+</ul>
+{% endfor %}
+</td>
+
+</tr>
+</table>
