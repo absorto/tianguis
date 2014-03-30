@@ -16,10 +16,15 @@
 <td>
 <h2>Mis órdenes</h2>
 {% for o in mis_ordenes %}
-{{ o.fecha }} {{ o.estado }}<br />
+{{ o.fecha }} {{ o.estado }}
+<a href="ordenes/{{ o.id }}/eliminar/">X</a>
+
+<br />
 <ul>
   {% for p in o.pedido_set.all %}
-  <li>{{ p.cantidad }} {{ p.producto }}</li>
+  <li>
+    {{ p.cantidad }} {{ p.producto }}
+  </li>
   {% endfor %}
 </ul>
 {% endfor %}

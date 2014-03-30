@@ -106,7 +106,7 @@ def orden_nueva (request, vendimia_id):
 # url(r'^(?P<vendimia_id>\d)/ordenes/(?P<orden_id>\d)', get_orden),
 @login_required
 def get_orden(request,vendimia_id, orden_id):
-    v = Vendimia.objects.get (id = orden_id)
+    v = Vendimia.objects.get (id = vendimia_id)
     o = Orden.objects.get (id = orden_id)
     return render_to_response('orden.html',
                               context_instance=RequestContext(request,
@@ -114,3 +114,13 @@ def get_orden(request,vendimia_id, orden_id):
                                                                'vendimia': v,
                                                                'orden': o,}))
 
+
+
+# url(r'^(?P<vendimia_id>\d)/ordenes/(?P<orden_id>\d)', get_orden),
+@login_required
+def elimina_orden(request,vendimia_id, orden_id):
+    v = Vendimia.objects.get (id = vendimia_id)
+    o = Orden.objects.get (id = orden_id)
+#    if not 'cerrada' in v.status:
+    o.delete()
+    return redirect("/vendimia/%s/" % vendimia_id)
