@@ -2,12 +2,14 @@
 Publicar oferta
 Enviar oferta
 -en respuesta a demanda
+-basada en ofertas recibidas
 Preguntas y respuestas por anuncio
 
 
 Publicar demanda
 Enviar demanda
 -en respuesta a oferta
+-basada en demandas recibidas
 
 
 
@@ -26,6 +28,8 @@ Gestión listas blancas por grupo
 Gestión listas blancas por persona
 Gestión listas negras por grupo
 Gestión listas negras por persona
+
+
 
 Gestión de plantillas (productos y cantidades, plantillas antiguas)
 Uso  de palabras clave(tags)
@@ -54,4 +58,5 @@ estatus
 fecha de caducidad elegida x usuario o default
 crear un usuario PUBLICO que representa a los extraños y debe encontrarse o en la lista negra o en la blanca
 Usuario anónimo ve página con ofertas
+Al hacer la oferta/demanda deben indicar qué.  Cuánto, el precio y dónde son opcionales.
 
