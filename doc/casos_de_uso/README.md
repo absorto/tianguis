@@ -3,39 +3,39 @@ Casos de uso
 
 * [Publicar oferta](publicar_oferta.md)
 
-* Enviar oferta
+* [Enviar oferta](enviar_oferta.md)
 	- en respuesta a demanda
 	- basada en ofertas recibidas
 
-* Preguntas y respuestas por anuncio
+* [Preguntas y respuestas por anuncio](preguntas_y_respuestas_por_anuncio.md)
 
 
-* Publicar demanda
-* Enviar demanda
+* [Publicar demanda](publicar_demanda.md)
+* [Enviar demanda](enviar_demanda.md)
 	- en respuesta a oferta
 	- basada en demandas recibidas
 
 
-* Suscripción/des a anuncios de otro(s) usuario(s)
-* Suscripción/des a anuncios de lugares
+* [Suscripción/des a anuncios de otro(s) usuario(s)](suscripcion_a_anuncios_de_otros_usuarios.md)
+* [Suscripción/des a anuncios de lugares](suscripcion_a_anuncios_de_lugares.md)
 
-* Registro/des de lugares
-* Registro/des de organizaciones
-* Registro/des de usuarios
+* [Registro de lugares](registro_de_lugares.md)
+* [Registro de organizaciones](registro_de_organizaciones.md)
+* [Registro de usuarios](registro_de_usuarios.md)
 	- asociar cuenta externa
-* Administrar perfil
+* [Administrar perfil](administrar_perfil.md)
 
-* Invitación de usuarios 
-* Gestión de roles
-* Gestión listas blancas por grupo
-* Gestión listas blancas por persona
-* Gestión listas negras por grupo
-* Gestión listas negras por persona
+* [Invitación de usuarios ](invitacion_de_usuarios.md)
+* [Gestión de roles](gestion_de_roles.md)
+* [Gestión listas blancas por grupo](gestion_listas_blancas_por_grupo.md)
+* [Gestión listas blancas por persona](gestion_listas_blancas_por_persona.md)
+* [Gestión listas negras por grupo](gestion_listas_negras_por_grupo.md)
+* [Gestión listas negras por persona](gestion_listas_negras_por_persona.md)
 
-* Gestión de plantillas (productos y cantidades, plantillas antiguas)
-* Uso  de palabras clave(tags)
-* Búsquedas
-* Estadísticas/reportes
+* [Gestión de plantillas](gestion_de_plantillas.md) (productos y cantidades, plantillas antiguas)
+* [Uso  de palabras clave](tags.md) (tags)
+* [Búsquedas](busquedas.md)
+* [Estadísticas/reportes](estadisticas.md)
 	- Ingreso x productos
 	- Dinámica ingreso x productos(cuál se vende más)
 	- Usuarios (quiénes finalizan la compra, me califican bien..)
@@ -44,9 +44,9 @@ Casos de uso
 	- Anonimizados y generalizados
 	- Historial
 
-* Consumar transacción (cancelar/finalizar)
-	- Generar Nota(A veces el pedido no se entrega completo o se cambian productos o precios)
-* Calificar a usuario/organización tras consumar transacción
+* [Terminar transacción](terminar_transaccion.md) (cancelar/consumar)
+	- [Generar Nota](generar_nota.md) (A veces el pedido no se entrega completo o se cambian productos o precios)
+* [Calificar a usuario/organización tras consumar transacción](calificar_tras_consumar_transaccion.md)
 
 
 
