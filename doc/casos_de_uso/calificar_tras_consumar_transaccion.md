@@ -1,3 +1,5 @@
+Calificar
+=========
 
 Una vez finalizada la transacción, 
 es posible y deseable que tanto el comprador como el ofertante califiquen a su contraparte:
