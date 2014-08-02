@@ -1,10 +1,9 @@
 Gestión de plantillas
 ====
+Los usuarios podrán crear plantillas de anuncios, para ofertas o demandas, y gardarlas en su carpeta de Plantillas.
 
-Cada usuario podrá crear listas de pedido u oferta y guardarlas en su carpeta de Plantillas.
+La plantilla de oferta o demanda, es un conjunto de items, opcionalmente con cantidades, precios y lugar de entrega.
 
-La lista de pedido o lista de oferta, es un conjunto de productos, con precios asociados en el caso de ofertas,
-y opcionalmente lugar y hora de entrega.
+Así, cada vez que el usuario necesite publicar una oferta o una demanda, puede usar una de sus plantillas ya creadas sin tener que re-capturar todo.
 
-Así, cada vez que el usuario necesite publicar una oferta o una demanda, puede usar una de sus plantillas ya creadas sin tener que re-capturar productos, incluso puede editar la plantilla para cambiar algunos datos (e.g. cambiar el precio del jitomate ofertado). 
-
+También se puede editar plantillas ya creadas para cambiar algunos datos (e.g. cambiar el precio del jitomate ofertado). 
