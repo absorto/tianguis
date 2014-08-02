@@ -7,7 +7,7 @@ Existe un apartado en el sitio para generar estadísticas y reportes de acuerdo 
 
 
 Tipos de Reportes
-__ 
+---
     Ingreso x productos
     Dinámica ingreso x productos(cuál se vende más)
     Usuarios (quiénes finalizan la compra, me califican bien..)
