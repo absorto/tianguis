@@ -6,6 +6,10 @@ Casos de uso
 * [Publicar oferta](publicar_oferta.md)
 * [Enviar oferta](enviar_oferta.md)
 * [Enviar pedido](enviar_pedido.md)
+* [Declinar transacción](declinar_transaccion.md)
+* [Generar Nota](generar_nota.md) si la transacción se consuma.
+
+
 * [Preguntas y respuestas por anuncio](preguntas_y_respuestas_por_anuncio.md)
 * [Suscripción a anuncios de otros usuarios](suscripcion_a_anuncios_de_otros_usuarios.md)
 * [Suscripción a anuncios de lugares](suscripcion_a_anuncios_de_lugares.md)
@@ -20,6 +24,4 @@ Casos de uso
 * [Uso de palabras clave](tags.md) (tags)
 * [Búsquedas](busquedas.md)
 * [Estadísticas/reportes](estadisticas.md)
-* [Declinar transacción](declinar_transaccion.md)
-* [Generar Nota](generar_nota.md)
 * [Calificar a usuario/organización tras consumar transacción](calificar_tras_consumar_transaccion.md)
