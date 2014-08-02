@@ -3,4 +3,4 @@ Administrar perfil
 
 Un usuario puede elegir un avatar, configurar el aspecto de su perfil con un background y colores.
 
-También puede administrar el perfil de aquellas organizaciones que lo tengan en el rol apropiado.
+También puede alterar el aspecto de la página de perfil de aquellas organizaciones para las que tenga permiso.
