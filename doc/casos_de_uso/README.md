@@ -12,7 +12,7 @@ Casos de uso
 
 * [Publicar demanda](publicar_demanda.md)
 * [Enviar demanda](enviar_demanda.md)
-	- en respuesta a oferta
+	- en respuesta a oferta  
 	- basada en demandas recibidas
 
 
@@ -26,7 +26,7 @@ Casos de uso
 * [Administrar perfil](administrar_perfil.md)
 
 * [Invitación de usuarios ](invitacion_de_usuarios.md)
-* [Gestión de roles](gestion_de_roles.md)
+* [Gestión de permisos](gestion_de_permisos.md)
 * [Gestión listas](gestion_listas.md)
 
 * [Gestión de plantillas](gestion_de_plantillas.md) (productos y cantidades, plantillas antiguas)
