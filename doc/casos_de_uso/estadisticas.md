@@ -6,7 +6,7 @@ Existe un apartado en el sitio para generar estadísticas y reportes de acuerdo 
 
 
 
-Tipos de Reportes
+Tipos de Reporte
 ---
     Ingreso x productos
     Dinámica ingreso x productos(cuál se vende más)
