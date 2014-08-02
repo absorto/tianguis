@@ -5,6 +5,8 @@ Se pueden declinar:
 * demandas
 * ofertas
 * pedidos
+ 
+
 Declinar una demanda o una oferta sólo la hace desaparecer del inbox/scroll. Declinar un pedido envía un aviso a quien lo ha pedido.
 
 El orden podría ser:
