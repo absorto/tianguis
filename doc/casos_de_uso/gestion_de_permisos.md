@@ -12,15 +12,14 @@ Acciones
 * Publicar demanda
 * Enviar oferta
 * Enviar demanda
-* Administrar listas blancas
-* Administrar listas negras
-* Administrar aspectos del perfil
+* Administrar lista negra
+* Administrar aspecto del perfil
 * Comentar en Anuncios
 * Suscribirse a Usuarios
 * Suscribirse a Lugares
 * Ver estadísticas
 * Generar notas
-
+* Declinar transacciones
 
 
 
