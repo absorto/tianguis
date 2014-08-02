@@ -22,14 +22,3 @@ Casos de uso
 * [Declinar transacción](declinar_transaccion.md)
 * [Generar Nota](generar_nota.md)
 * [Calificar a usuario/organización tras consumar transacción](calificar_tras_consumar_transaccion.md)
-
-
-
-Notas
-=====
-
-* Mensajes tienen:
-	- estatus
-	- fecha de caducidad elegida x usuario o default
-* Crear un usuario PUBLICO que representa a los extraños y debe encontrarse o en la lista negra o en la blanca
-* Usuario anónimo ve página con ofertas
