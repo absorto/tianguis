@@ -1,10 +1,11 @@
 Casos de uso
 ============
 
-* [Publicar oferta](publicar_oferta.md)
-* [Enviar oferta](enviar_oferta.md)
 * [Publicar demanda](publicar_demanda.md)
 * [Enviar demanda](enviar_demanda.md)
+* [Publicar oferta](publicar_oferta.md)
+* [Enviar oferta](enviar_oferta.md)
+* [Enviar pedido](enviar_pedido.md)
 * [Preguntas y respuestas por anuncio](preguntas_y_respuestas_por_anuncio.md)
 * [Suscripción a anuncios de otros usuarios](suscripcion_a_anuncios_de_otros_usuarios.md)
 * [Suscripción a anuncios de lugares](suscripcion_a_anuncios_de_lugares.md)
