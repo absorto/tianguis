@@ -1,14 +1,9 @@
-Gestión de roles
+Gestión de permisos
 ====
-
 
 Cada usuario tiene la facultad de crear organizaciones.
 Es administrador de las organizaciones que crea.
-
-Roles y permisos
------
-Administrador: Puede asociar a usuarios con acciones dentro de una organización. 
-
+Dentro de esas organizaciones puede crear nuevos usuarios con permisos para ejecutar acciones:
 
 Acciones
 ------
