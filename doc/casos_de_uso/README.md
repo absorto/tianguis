@@ -15,11 +15,11 @@ Casos de uso
 * [Registro de lugares](registro_de_lugares.md)
 * [Registro de organizaciones](registro_de_organizaciones.md)
 * [Registro de usuarios](registro_de_usuarios.md)
-* [Administrar perfil](administrar_perfil.md)
+* [Administrar perfil](administrar_perfil.md) 
 
 * [Invitación de usuarios ](invitacion_de_usuarios.md)
 * [Gestión de permisos](gestion_de_permisos.md)
-* [Gestión de listas](gestion_listas.md)
+* [Gestión de lista negra](gestion_lista_negra.md)
 
 * [Gestión de plantillas de anuncios](gestion_de_plantillas.md)
 * [Uso de palabras clave](tags.md) (tags)
