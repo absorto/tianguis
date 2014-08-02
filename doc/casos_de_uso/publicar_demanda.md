@@ -8,3 +8,5 @@ Por lo demás es igual a una [oferta pública](publicar_oferta.md): un usuario e
 Las demandas que un usuario publica son visibles en su perfil a los demás usuarios, incluyendo a los usuarios anónimos.
 
 Estas demandas públicas pueden responderse en privado con un [envío de oferta](enviar_oferta.md).
+
+Puede basarse una demanda en una [plantilla](gestion_de_plantillas.md).
