@@ -8,7 +8,9 @@ El usuario especifica el periodo de vigencia de la oferta, si se omite el sistem
 
 Las ofertas públicas son visibles por cualquier usuario del sistema, incluyendo al usuario anónimo, como parte del perfil del ofertante.
 
-El usuario puede ofertar como organización o como persona.
+El usuario puede ofertar como organización o como persona. 
+
+Puede basarse una oferta en una [plantilla](gestion_de_plantillas.md).
 
 
 Ejemplos
