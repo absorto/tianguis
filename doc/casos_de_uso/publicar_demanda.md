@@ -5,7 +5,7 @@ Una demanda es un tipo de anuncio, equivalente a una oferta pero con el discurso
 
 Por lo demás es igual a una [oferta pública](publicar_oferta.md): un usuario especifica qué items quiere comprar, opcionalmente cuántos, en qué precios y en qué lugar.
 
-Las demandas que un usuario publica son visibles en su perfil a los demás usuarios, incluyendo a los usuarios anónimos.
+Las demandas que un usuario publica son visibles en su perfil a los demás usuarios y a visitantes no registrados.
 
 Estas demandas públicas pueden responderse en privado con un [envío de oferta](enviar_oferta.md).
 
