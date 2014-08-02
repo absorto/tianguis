@@ -27,8 +27,7 @@ Casos de uso
 
 * [Invitación de usuarios ](invitacion_de_usuarios.md)
 * [Gestión de roles](gestion_de_roles.md)
-* [Gestión listas blancas](gestion_listas_blancas.md)
-* [Gestión listas negras](gestion_listas_negras.md)
+* [Gestión listas](gestion_listas.md)
 
 * [Gestión de plantillas](gestion_de_plantillas.md) (productos y cantidades, plantillas antiguas)
 * [Uso  de palabras clave](tags.md) (tags)
