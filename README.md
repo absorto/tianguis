@@ -49,3 +49,16 @@ Con un buen diseño buscaremos implementaciones. Escribir una
 aplicación web parece una buena dirección, pero tal vez después sea
 hasta mejor hacer una aplicación p2p, con anonimidad, encripción y
 todas las bonanzas.
+
+
+# Cómo colaborar #
+
+¿Leiste los
+[casos de uso](https://github.com/absorto/tianguis_django/tree/master/doc/casos_de_uso)?
+¿Puedes pensar más? ¿Les falta detalle? Con confianza un fork, o
+[mándanos mail](mailto:absorto@sdf.org), quedamos y podemos chatear
+por IRC o en un pad, ya veremos.
+
+También ayudaría hacer algunos diagramas y mock-ups.
+
+Si te aventuras a hacer mock-ups en html eso estaría buenísimo.
