@@ -1,3 +1,6 @@
+w2utils.locale('bower_components/w2ui/locale/es-mx.json');
+
+
 $(function () {
     $('#form').w2form({ 
         name   : 'anuncioForm',
