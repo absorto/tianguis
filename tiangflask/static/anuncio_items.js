@@ -1,3 +1,5 @@
+w2utils.locale('bower_components/w2ui/locale/es-mx.json');
+
 $(function () {
     $('#grid').w2grid({ 
         name: 'grid', 
@@ -35,6 +37,8 @@ $(function () {
         ]
     });    
 });
+
+
 
 function showChanged() {
     console.log(w2ui['grid'].getChanges()); 
