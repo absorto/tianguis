@@ -5,7 +5,7 @@ $(function () {
     $('#form').w2form({ 
         name   : 'anuncioForm',
         header : 'Crear Anuncio',
-        url    : 'server/post',
+        url    : 'http://127.0.0.1:5000/crear',
         fields : [
             { field: 'autor', type: 'text', required: true, html: 
                 { caption: 'Autor', attr: 'style="width: 300px"' } },
