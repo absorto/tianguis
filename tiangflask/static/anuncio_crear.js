@@ -1,30 +1,27 @@
 w2utils.locale('bower_components/w2ui/locale/es-mx.json');
 
-
 $(function () {
-    $('#form').w2form({ 
-        name   : 'anuncioForm',
-        header : 'Crear Anuncio',
-        url    : 'http://127.0.0.1:5000/crear',
+    $('#myForm').w2form({ 
+name   : 'myForm',
+url: 'http://localhost:5000/crear',
+        header: "Crear anuncio",
         fields : [
-            { field: 'autor', type: 'text', required: true, html: 
-                { caption: 'Autor', attr: 'style="width: 300px"' } },
-            { field: 'titulo',  type: 'text', required: true, html: 
+            { name: 'autor', type: 'text', required: true, html:
+              { caption: 'Autor', attr: 'style="width: 300px"' } },
+            { name: 'titulo',  type: 'text', required: true, html: 
                 { caption: 'Titulo', attr: 'style="width: 300px"' } },
-            { field: 'descripcion',   type: 'textarea', html: 
+            { name: 'descripcion',   type: 'textarea', html: 
                 { caption: 'Descripcion', attr: 'style="width: 300px; height: 90px"' } },
-            { field: 'fecha_expira',  type: 'date'}
-                
+            { name: 'fecha_expira',  type: 'date'}
+
         ],
         actions: {
-            'Guardar y Continuar': function (event) {
-                console.log('guardar', event);
-                this.save();
-            },
-            'Limpiar': function (event) {
-                console.log('limpiar', event);
+            reset: function () {
                 this.clear();
             },
+            "save": function (event) {
+                this.save();
+            }
         }
     });
 });
