@@ -48,14 +48,29 @@ var config = {
                 case 'o_mias':
                     w2ui.layout.content('main', w2ui.grid1);
                     break;
-            case 'o_inbox':
+               case 'o_inbox':
                     $().w2grid(config.o_inbox);
                     w2ui.layout.content('main', w2ui.o_inbox);
-                break;
-            case 'o_mercado':
-                    w2ui.layout.content('main', "la patita se ha enojado ya sabes por qué");
+                    break;
+               case 'o_mercado':
+                    //w2ui.layout.content('main', "la patita se ha enojado ya sabes por qué");
+                    $().w2grid(config.o_inbox);
+                    w2ui.layout.content('main', w2ui.o_inbox);
                     break;
 
+                case 'p_mias':
+                    w2ui.layout.content('main', w2ui.grid1);
+                    break;
+               case 'p_inbox':
+                    $().w2grid(config.o_inbox);
+                    w2ui.layout.content('main', w2ui.o_inbox);
+                    break;
+               case 'p_mercado':
+                    //w2ui.layout.content('main', "la patita se ha enojado ya sabes por qué");
+                    $().w2grid(config.o_inbox);
+                    w2ui.layout.content('main', w2ui.o_inbox);
+
+              
             }
         }
     },
@@ -125,6 +140,7 @@ var config = {
             { field: 'titulo', caption: 'Título', size: '180px' },
             { field: 'desc', caption: 'Descripción', size: '180px' },
             { field: 'vigencia', caption: 'Vigencia', size: '120px', sortable: true },
+            { field: 'lugar', caption: 'Lugar', size: '180px'},
         ],
 
         onClick: function (event) {
@@ -133,8 +149,8 @@ var config = {
         },
         
         records: [
-            { recid: 1, usuario: "la granja", titulo: 'puesto', desc: 'Tianguis el 100', email: 'jdoe@gmail.com', vigencia: '4/3/2012' },
-            { recid: 2, usuario: "la nicolasa", titulo: 'A domicilio', desc: 'fruta y verdura otoñal', email: 'jdoe@gmail.com', vigencia: '4/3/2012' },
+          { recid: 1, usuario: "la granja", titulo: 'puesto', desc: 'Tianguis el 100', email: 'jdoe@gmail.com', vigencia: '4/3/2012', lugar: 'mercado100' },
+          { recid: 2, usuario: "la nicolasa", titulo: 'A domicilio', desc: 'fruta y verdura otoñal', email: 'jdoe@gmail.com', vigencia: '4/3/2012', lugar: 'indefinido' },
         ],
 
         
