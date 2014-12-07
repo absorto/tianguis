@@ -9,6 +9,7 @@ w2utils.locale('bower_components/w2ui/locale/es-mx.json');
 // # /pedidos/mercado
 
 // widget configuration
+var unidades = ['kg', 'bolsa', 'ramo', 'litro', 'domo', 'manojo', 'pieza'];
 
 var config = {
 
@@ -167,8 +168,8 @@ var itemgrid = {
         { field: 'desc', caption: 'descripci&oacute;n', size: '120px', sortable: true, resizable: true, 
           editable: { type: 'text' }
         },
-        { field: 'unidad', caption: 'unidad', size: '120px', sortable: true, resizable: true, 
-          editable: { type: 'text' }
+        { field: 'unidad', caption: 'unidad', size: '50%', sortable: true, resizable: true, 
+                editable: { type: 'combo', items: unidades, showAll: true } 
         },
         { field: 'precio', caption: 'precio', size: '80px', sortable: true, resizable: true, render: 'money',
           editable: { type: 'money' }
