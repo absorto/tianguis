@@ -32,12 +32,12 @@ var config = {
         name: 'sidebar',
         nodes: [ 
             { id: 'ofertas', text: 'Ofertas', group: true, expanded: true, nodes: [
-                { id: 'o_mias', text: 'Mías', img: 'icon-home', selected: true },
+                { id: 'o_mias', text: 'Mías', img: ' w2ui-icon-columns', selected: true },
                 { id: 'o_inbox', text: 'Inbox', img: 'icon-folder' },
                 { id: 'o_mercado', text: 'En el mercado', img: 'icon-page' },
             ]},
             { id: 'pedidos', text: 'Pedidos', group: true, expanded: true, nodes: [
-                { id: 'p_mias', text: 'Mis pedidos', img: 'fa-home' },
+                { id: 'p_mias', text: 'Mis pedidos', img: 'w2ui-icon-columns' },
                 { id: 'p_inbox', text: 'Inbox', img: 'icon-folder' },
                 { id: 'p_mercado', text: 'En el mercado', img: 'icon-page' },
             ]}
@@ -232,7 +232,7 @@ function p_itemgrid(recid) {
 function openOfertaItemPopup(recid) {
     w2popup.open({
         title   : 'items en la oferta '+recid,
-        width   : 600,
+        width   : 900,
         height  : 600,
         body    : '<div id="poplayout" style="position: absolute; left: 5px; top: 5px; right: 5px; bottom: 5px;"></div>',
         onOpen  : function (event) {
