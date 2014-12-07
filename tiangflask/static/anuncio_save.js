@@ -3,7 +3,7 @@ w2utils.locale('bower_components/w2ui/locale/es-mx.json');
 $(function () {
     $('#myForm').w2form({ 
         name   : 'myForm',
-        url: 'http://localhost:5000/anuncio_save',
+        url: 'http://localhost:5000/anuncios/save',
         header: "Crear anuncio",
         fields : [
             { name: 'autor', type: 'text', required: true, html:
