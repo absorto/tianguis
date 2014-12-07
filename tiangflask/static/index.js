@@ -32,12 +32,12 @@ var config = {
         name: 'sidebar',
         nodes: [ 
             { id: 'ofertas', text: 'Ofertas', group: true, expanded: true, nodes: [
-                { id: 'o_mias', text: 'Mías', img: 'icon-home', selected: true },
+                { id: 'o_mias', text: 'Mías', img: ' w2ui-icon-columns', selected: true },
                 { id: 'o_inbox', text: 'Inbox', img: 'icon-folder' },
                 { id: 'o_mercado', text: 'En el mercado', img: 'icon-page' },
             ]},
             { id: 'pedidos', text: 'Pedidos', group: true, expanded: true, nodes: [
-                { id: 'p_mias', text: 'Mis pedidos', img: 'fa-home' },
+                { id: 'p_mias', text: 'Mis pedidos', img: 'w2ui-icon-columns' },
                 { id: 'p_inbox', text: 'Inbox', img: 'icon-folder' },
                 { id: 'p_mercado', text: 'En el mercado', img: 'icon-page' },
             ]}
@@ -48,14 +48,29 @@ var config = {
                 case 'o_mias':
                     w2ui.layout.content('main', w2ui.o_mias);
                     break;
-            case 'o_inbox':
+               case 'o_inbox':
                     $().w2grid(config.o_inbox);
                     w2ui.layout.content('main', w2ui.o_inbox);
-                break;
-            case 'o_mercado':
-                    w2ui.layout.content('main', "la patita se ha enojado ya sabes por qué");
+                    break;
+               case 'o_mercado':
+                    //w2ui.layout.content('main', "la patita se ha enojado ya sabes por qué");
+                    $().w2grid(config.o_inbox);
+                    w2ui.layout.content('main', w2ui.o_inbox);
                     break;
 
+                case 'p_mias':
+                    w2ui.layout.content('main', w2ui.grid1);
+                    break;
+               case 'p_inbox':
+                    $().w2grid(config.o_inbox);
+                    w2ui.layout.content('main', w2ui.o_inbox);
+                    break;
+               case 'p_mercado':
+                    //w2ui.layout.content('main', "la patita se ha enojado ya sabes por qué");
+                    $().w2grid(config.o_inbox);
+                    w2ui.layout.content('main', w2ui.o_inbox);
+
+              
             }
         }
     },
@@ -123,6 +138,7 @@ var config = {
             { field: 'titulo', caption: 'Título', size: '180px' },
             { field: 'desc', caption: 'Descripción', size: '180px' },
             { field: 'vigencia', caption: 'Vigencia', size: '120px', sortable: true },
+            { field: 'lugar', caption: 'Lugar', size: '180px'},
         ],
 
         onClick: function (event) {
@@ -131,8 +147,8 @@ var config = {
         },
         
         records: [
-            { recid: 1, usuario: "la granja", titulo: 'puesto', desc: 'Tianguis el 100', email: 'jdoe@gmail.com', vigencia: '4/3/2012' },
-            { recid: 2, usuario: "la nicolasa", titulo: 'A domicilio', desc: 'fruta y verdura otoñal', email: 'jdoe@gmail.com', vigencia: '4/3/2012' },
+          { recid: 1, usuario: "la granja", titulo: 'puesto', desc: 'Tianguis el 100', email: 'jdoe@gmail.com', vigencia: '4/3/2012', lugar: 'mercado100' },
+          { recid: 2, usuario: "la nicolasa", titulo: 'A domicilio', desc: 'fruta y verdura otoñal', email: 'jdoe@gmail.com', vigencia: '4/3/2012', lugar: 'indefinido' },
         ],
 
         
@@ -214,7 +230,7 @@ function p_itemgrid(recid) {
 function openOfertaItemPopup(recid) {
     w2popup.open({
         title   : 'items en la oferta '+recid,
-        width   : 600,
+        width   : 900,
         height  : 600,
         body    : '<div id="poplayout" style="position: absolute; left: 5px; top: 5px; right: 5px; bottom: 5px;"></div>',
         onOpen  : function (event) {
