@@ -14,12 +14,25 @@ app = Flask(__name__)
 def anuncio_save():
     try:
 #        pprint.pprint(request)
+        app.logger.debug('A value for debugging')
+        app.logger.warning('A warning occurred (%d apples)', 42)
+        app.logger.error('An error occurred')
         return jsonify({ "status": "success"} )
     except:
         return jsonify({ "status": "error",
                          "message": pprint.pformat(sys.exc_info()[0]) })
  
 
+
+# /ofertas/mias
+# /overtas/inbox
+# /ofertas/mercado
+
+
+# /pedidos/mios
+# /pedidos/inbox
+# /pedidos/mercado
+    
 
 
 
