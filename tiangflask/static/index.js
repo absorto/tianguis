@@ -46,7 +46,7 @@ var config = {
         onClick: function (event) {
             switch (event.target) {
                 case 'o_mias':
-                    w2ui.layout.content('main', w2ui.grid1);
+                    w2ui.layout.content('main', w2ui.o_mias);
                     break;
             case 'o_inbox':
                     $().w2grid(config.o_inbox);
@@ -64,8 +64,10 @@ var config = {
     /////////////
     // ofertas //
     /////////////
-    grid1: { 
-        name: 'grid1',
+    o_mias: { 
+        name: 'o_mias',
+        url: '/ofertas/mias',
+//        method: 'GET', 
         show: {
             toolbar : true,
             toolbarDelete: true,
@@ -78,7 +80,7 @@ var config = {
             ],
             onClick: function (event) {
                 if (event.target == 'add') {
-                    w2ui.grid1.add({ recid: w2ui.grid1.records.length + 1 });
+                    w2ui.o_mias.add({ recid: w2ui.o_mias.records.length + 1 });
                 }
             }
         },
@@ -90,11 +92,7 @@ var config = {
                 editable: { type: 'checkbox' } 
             },
         ],
-        // sustituir por llamada al api
-        records: [
-            { recid: 1, titulo: 'puesto', desc: 'Tianguis el 100', email: 'jdoe@gmail.com', vigencia: '4/3/2012' },
-            { recid: 2, titulo: 'A domicilio', desc: 'fruta y verdura otoñal', email: 'jdoe@gmail.com', vigencia: '4/3/2012' },
-        ],
+
         searches: [
             { type: 'date', field: 'vigencia', caption: 'Vigencia' }
         ],
@@ -261,5 +259,7 @@ function openPedidoItemPopup(recid) {
 $(function () {
     $('#main').w2layout(config.layout);
     w2ui.layout.content('left', $().w2sidebar(config.sidebar));
-    w2ui.layout.content('main', $().w2grid(config.grid1));
+    w2ui.layout.content('main', $().w2grid(config.o_mias));
+    w2ui.o_mias.autoLoad = false;
+    w2ui.o_mias.skip(0);
 });

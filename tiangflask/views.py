@@ -1,9 +1,12 @@
 from flask import Flask, session, redirect, url_for, escape, request, jsonify
+from flask.ext.pymongo import PyMongo
+
 
 import pprint
 import sys
 
-app = Flask(__name__)
+app = Flask("tianguis")
+mongo = PyMongo(app)
 
 
 ############
@@ -24,8 +27,25 @@ def anuncio_save():
  
 
 
-# /ofertas/mias
-# /overtas/inbox
+@app.route('/ofertas/mias', methods=['POST', 'GET'])
+def ofertas_mias():
+
+    if request.form['cmd'] == 'get-records':
+        ofertas = mongo.db.anuncios.find({'autor': session['username']})
+        for o in ofertas:
+            app.logger.debug(pprint.pformat(o))                    
+        # records = [ { 'recid': '32af', 'titulo': 'puesto', 'desc': 'Tianguis el 100', 'email': 'jdoe@gmail.com', 'vigencia': '4/3/2012' },
+        #             { 'recid': 'uio2', 'titulo': 'puesto', 'desc': 'Tianguis el 100', 'email': 'jdoe@gmail.com', 'vigencia': '4/3/2012' },
+        #         ]
+    
+    return jsonify( { 'status': "success", 'total':2, 'records': records} )
+        
+#        
+#            { recid: 1, titulo: 'puesto', desc: 'Tianguis el 100', email: 'jdoe@gmail.com', vigencia: '4/3/2012' },
+#        app.logger.debug(pprint.pformat(ofertas))
+
+
+    # /overtas/inbox
 # /ofertas/mercado
 
 
@@ -43,7 +63,7 @@ def anuncio_save():
 def index():
     if 'username' in session:
         return 'Logged in as %s' % escape(session['username'])
-    return 'You are not logged in'
+    return 'You are not logged in. <a href="/login">login</a><br><a href="/static/index.html">home</a>'
 
 
 @app.route('/login', methods=['GET', 'POST'])
