@@ -97,9 +97,9 @@ var config = {
         // falta onSave
 
         // abre lista de items
-        onEdit: function() {
-            $().w2grid(itemgrid);
-            openItemPopup();
+        onEdit: function(event) {
+            $().w2grid(itemgrid(event.recid));
+            openItemPopup(event.recid);
         },
     
     },
@@ -145,57 +145,59 @@ var config = {
 
 
 
-var itemgrid = { 
-    name: 'itemgrid', 
-    show: {
-        toolbar: true,
-        toolbarDelete: true,
-        toolbarSave: true,
-    },
-    toolbar: {
-        items: [
-            { id: 'add', type: 'button', caption: 'Otro item', icon: 'w2ui-icon-plus' }
-        ],
-        onClick: function (event) {
-            if (event.target == 'add') {
-                w2ui.grid1.add({ recid: w2ui.itemgrid.records.length + 1 });
+function itemgrid(recid) {
+    return { 
+        name: 'itemgrid', 
+        show: {
+            toolbar: true,
+            toolbarDelete: true,
+            toolbarSave: true,
+        },
+//        url: '/'+recid,
+        toolbar: {
+            items: [
+                { id: 'add', type: 'button', caption: 'Otro item', icon: 'w2ui-icon-plus' }
+            ],
+            onClick: function (event) {
+                if (event.target == 'add') {
+                    w2ui.grid1.add({ recid: w2ui.itemgrid.records.length + 1 });
+                }
             }
-        }
-    },
-
-    columns: [                
-        { field: 'text', caption: 'nombre', size: '120px', sortable: true, resizable: true, 
-          editable: { type: 'text' }
         },
-        { field: 'desc', caption: 'descripción', size: '50%', sortable: true, resizable: true, 
-          editable: { type: 'text' }
-        },
-        { field: 'presentacion', caption: 'presentación', size: '100px', sortable: true, resizable: true, 
-          editable: { type: 'combo', items: unidades, openOnFocus: true } 
-        },
-        { field: 'precio', caption: 'precio', size: '80px', sortable: true, resizable: true, render: 'money',
-          editable: { type: 'money' }
-        },
-    ],
-    toolbar: {
-        items: [
-            { id: 'add', type: 'button', caption: 'otro item', icon: 'w2ui-icon-plus' }
+        
+        columns: [                
+            { field: 'text', caption: 'nombre', size: '120px', sortable: true, resizable: true, 
+              editable: { type: 'text' }
+            },
+            { field: 'desc', caption: 'descripción', size: '50%', sortable: true, resizable: true, 
+              editable: { type: 'text' }
+            },
+            { field: 'presentacion', caption: 'presentación', size: '100px', sortable: true, resizable: true, 
+              editable: { type: 'combo', items: unidades, openOnFocus: true } 
+            },
+            { field: 'precio', caption: 'precio', size: '80px', sortable: true, resizable: true, render: 'money',
+              editable: { type: 'money' }
+            },
         ],
-        onClick: function (event) {
-            if (event.target == 'add') {
-                w2ui.itemgrid.add({ recid: w2ui.itemgrid.records.length + 1 });
+        toolbar: {
+            items: [
+                { id: 'add', type: 'button', caption: 'otro item', icon: 'w2ui-icon-plus' }
+            ],
+            onClick: function (event) {
+                if (event.target == 'add') {
+                    w2ui.itemgrid.add({ recid: w2ui.itemgrid.records.length + 1 });
+                }
             }
-        }
-    },
-    records: [
-    ]
+        },
+        records: [
+        ]
+    }
 }
 
 
-
-function openItemPopup() {
+function openItemPopup(recid) {
     w2popup.open({
-        title   : 'items en la oferta',
+        title   : 'items en la oferta '+recid,
         width   : 600,
         height  : 600,
         body    : '<div id="poplayout" style="position: absolute; left: 5px; top: 5px; right: 5px; bottom: 5px;"></div>',
