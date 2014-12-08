@@ -32,13 +32,14 @@ def anuncio_save():
 def ofertas_mias():
 
     if request.form['cmd'] == 'get-records':
-         pass
+        pass
+
     elif request.form['cmd'] == 'save-records':
         records = {}
         for key in request.form:
             if key.startswith("changes"):
                 # parse 'changes' key submited by w2ui
-                # changes[0][desc]: ffff
+                # changes[0][desc]: tiangis placero
                 (n, pkey) = key.split('][')
                 pkey = pkey[0:-1]
                 if pkey != 'recid':
@@ -46,19 +47,20 @@ def ofertas_mias():
                         records[n][pkey] = request.form[key]
                     else:
                         records[n] = { pkey: request.form[key] }
-                    
-        app.logger.debug(pprint.pformat(records))
-    else:
-        pass
 
+    ofertas = mongo.db.ofertas.find()
+    records = []
+    for o in ofertas:
+        o['_id'] = str(o['_id'])
+        records.append(o)
 
-    ofertas = mongo.db.ofertas.find({'autor': session['username']})
-    records = [o for o in ofertas]
     return jsonify( { 'status': "success", 'total':len(records), 'records': records} )
        
 #        
 #            { recid: 1, titulo: 'puesto', desc: 'Tianguis el 100', email: 'jdoe@gmail.com', vigencia: '4/3/2012' },
 #        
+    # app.logger.debug(pprint.pformat(records))
+    # app.logger.debug(session['username'])
 
 
 # /overtas/inbox
