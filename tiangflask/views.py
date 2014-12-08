@@ -4,6 +4,7 @@ from flask.ext.pymongo import PyMongo
 
 import pprint
 import sys
+import re
 
 app = Flask("tianguis")
 mongo = PyMongo(app)
@@ -31,21 +32,36 @@ def anuncio_save():
 def ofertas_mias():
 
     if request.form['cmd'] == 'get-records':
-        ofertas = mongo.db.anuncios.find({'autor': session['username']})
-        for o in ofertas:
-            app.logger.debug(pprint.pformat(o))                    
-        # records = [ { 'recid': '32af', 'titulo': 'puesto', 'desc': 'Tianguis el 100', 'email': 'jdoe@gmail.com', 'vigencia': '4/3/2012' },
-        #             { 'recid': 'uio2', 'titulo': 'puesto', 'desc': 'Tianguis el 100', 'email': 'jdoe@gmail.com', 'vigencia': '4/3/2012' },
-        #         ]
-    
-    return jsonify( { 'status': "success", 'total':2, 'records': records} )
-        
+         pass
+    elif request.form['cmd'] == 'save-records':
+        records = {}
+        for key in request.form:
+            if key.startswith("changes"):
+                # parse 'changes' key submited by w2ui
+                # changes[0][desc]: ffff
+                (n, pkey) = key.split('][')
+                pkey = pkey[0:-1]
+                if pkey != 'recid':
+                    if n in records:
+                        records[n][pkey] = request.form[key]
+                    else:
+                        records[n] = { pkey: request.form[key] }
+                    
+        app.logger.debug(pprint.pformat(records))
+    else:
+        pass
+
+
+    ofertas = mongo.db.ofertas.find({'autor': session['username']})
+    records = [o for o in ofertas]
+    return jsonify( { 'status': "success", 'total':len(records), 'records': records} )
+       
 #        
 #            { recid: 1, titulo: 'puesto', desc: 'Tianguis el 100', email: 'jdoe@gmail.com', vigencia: '4/3/2012' },
-#        app.logger.debug(pprint.pformat(ofertas))
+#        
 
 
-    # /overtas/inbox
+# /overtas/inbox
 # /ofertas/mercado
 
 
@@ -56,14 +72,18 @@ def ofertas_mias():
 
 
 
-###################
-# Falso login     #
-###################
+
+
+##################################################################################
+# Login on openid Ref:                                                           #
+# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-v-user-logins #
+# Falso login                                                                    #
+##################################################################################
 @app.route('/')
 def index():
     if 'username' in session:
-        return 'Logged in as %s' % escape(session['username'])
-    return 'You are not logged in. <a href="/login">login</a><br><a href="/static/index.html">home</a>'
+        return 'Logged in as %s. <br><a href="/static/index.html">home</a>' % escape(session['username'])
+    return 'You are not logged in. <a href="/login">login</a>'
 
 
 @app.route('/login', methods=['GET', 'POST'])
