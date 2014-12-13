@@ -52,16 +52,22 @@ def ofertas_mias():
     # else:
     #     pass
 
-    app.logger.debug(pformat(parse_w2ui_request_form(request.form)))
     #app.logger.debug(pformat(request.form))
+    app.logger.debug(pformat(parse_w2ui_request_form(request.form)))
 
-    ofertas = mongo.db.ofertas.find({'autor': session['username']})
-    records = [o for o in ofertas]
+    ofertas = mongo.db.ofertas.find()
+    records = []
+    for o in ofertas:
+        o['_id'] = str(o['_id'])
+        records.append(o)
+
     return jsonify( { 'status': "success", 'total':len(records), 'records': records} )
        
 #        
 #            { recid: 1, titulo: 'puesto', desc: 'Tianguis el 100', email: 'jdoe@gmail.com', vigencia: '4/3/2012' },
 #        
+    # app.logger.debug(pprint.pformat(records))
+    # app.logger.debug(session['username'])
 
 
 # /overtas/inbox
