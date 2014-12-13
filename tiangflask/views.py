@@ -1,8 +1,9 @@
 from flask import Flask, session, redirect, url_for, escape, request, jsonify
 from flask.ext.pymongo import PyMongo
+from w2ui import parse_w2ui_request_form
 
 
-import pprint
+from pprint import pformat
 import sys
 import re
 
@@ -24,33 +25,35 @@ def anuncio_save():
         return jsonify({ "status": "success"} )
     except:
         return jsonify({ "status": "error",
-                         "message": pprint.pformat(sys.exc_info()[0]) })
+                         "message": pformat(sys.exc_info()[0]) })
  
 
 
 @app.route('/ofertas/mias', methods=['POST', 'GET'])
 def ofertas_mias():
 
-    if request.form['cmd'] == 'get-records':
-         pass
-    elif request.form['cmd'] == 'save-records':
-        records = {}
-        for key in request.form:
-            if key.startswith("changes"):
-                # parse 'changes' key submited by w2ui
-                # changes[0][desc]: ffff
-                (n, pkey) = key.split('][')
-                pkey = pkey[0:-1]
-                if pkey != 'recid':
-                    if n in records:
-                        records[n][pkey] = request.form[key]
-                    else:
-                        records[n] = { pkey: request.form[key] }
+    # if request.form['cmd'] == 'save-records':
+    #     records = {}
+    #     for key in request.form:
+    #         if key.startswith("changes"):
+    #             # parse 'changes' key submited by w2ui
+    #             # changes[0][desc]: ffff
+    #             (n, pkey) = key.split('][')
+    #             pkey = pkey[0:-1]
+    #             if pkey != 'recid':
+    #                 if n in records:
+    #                     records[n][pkey] = request.form[key]
+    #                 else:
+    #                     records[n] = { pkey: request.form[key] }
                     
-        app.logger.debug(pprint.pformat(records))
-    else:
-        pass
+    #     app.logger.debug(pformat(records))
+    # elif request.form['cmd'] == 'get-records':
+    #      pass
+    # else:
+    #     pass
 
+    app.logger.debug(pformat(parse_w2ui_request_form(request.form)))
+    #app.logger.debug(pformat(request.form))
 
     ofertas = mongo.db.ofertas.find({'autor': session['username']})
     records = [o for o in ofertas]
