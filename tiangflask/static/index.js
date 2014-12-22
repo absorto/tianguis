@@ -108,7 +108,11 @@ var o_mias = {
           url: "/ofertas/save",
           data: JSON.stringify( w2ui.o_mias.records ),
           contentType: "application/json; charset=utf-8",
-          dataType: "json"
+          dataType: "json",
+          error: function(errMsg) {
+            console.log(errMsg);
+            w2ui.o_mias.error("AJAX error" + errMsg.responseText);
+          }
         });
       }
     }  
