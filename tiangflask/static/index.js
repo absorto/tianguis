@@ -79,26 +79,49 @@ var config = {
     /////////////
     // ofertas //
     /////////////
-    o_mias: { 
+    o_mias: {
         name: 'o_mias',
         url: '/ofertas/mias',
 //        method: 'GET', 
         show: {
             toolbar : true,
             toolbarDelete: true,
-            toolbarSave: true,
+            toolbarSave: false,
             toolbarEdit: true
         },
         toolbar: {
             items: [
-                { id: 'add', type: 'button', caption: 'Nueva oferta', icon: 'w2ui-icon-plus' }
+                { id: 'add', type: 'button', caption: 'Nueva oferta', icon: 'w2ui-icon-plus' },
+                { type: 'break',  id: 'break0' },
+                { id: 'save', type: 'button', caption: 'Guardar', icon: 'w2ui-icon-save' }
             ],
             onClick: function (event) {
                 if (event.target == 'add') {
+                    console.log('dafuq');
                     w2ui.o_mias.add({ recid: w2ui.o_mias.records.length + 1 });
                 }
+                if (event.target == 'save') {
+                    //console.log(w2ui.o_mias.records);
+                    w2ui.o_mias.mergeChanges();                     
+                    $.ajax({
+                        type: "POST",
+                        url: "/ofertas/save",
+                        // The key needs to match your method's input parameter (case-sensitive).
+                        data: JSON.stringify( w2ui.o_mias.records ),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function(data){ console.log('guardeado'); },
+                        failure: function(errMsg) {
+                            console.log(errMsg);
+                        }
+                    });
+
+                }
+
             }
+
         },
+
         columns: [
             { field: 'titulo', caption: 'Título', size: '180px', editable: { type: 'text' } },
             { field: 'desc', caption: 'Descripción', size: '180px', editable: { type: 'text' } },
@@ -111,7 +134,6 @@ var config = {
         searches: [
             { type: 'date', field: 'vigencia', caption: 'Vigencia' }
         ],
-        // falta onSave
 
         // abre lista de items
         onEdit: function(event) {

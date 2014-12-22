@@ -1,5 +1,6 @@
 from flask import Flask, session, redirect, url_for, escape, request, jsonify
 from flask.ext.pymongo import PyMongo
+from bson.objectid import ObjectId
 from w2ui import parse_w2ui_request_form
 
 
@@ -28,46 +29,37 @@ def anuncio_save():
                          "message": pformat(sys.exc_info()[0]) })
  
 
+@app.route('/ofertas/save', methods=['POST', 'GET'])
+def ofertas_save():
+    for record in request.json:
+        app.logger.debug(pformat(record))
+
+        if type(record['recid']) == int:
+            record.pop('recid')
+        elif type(record['recid']) == unicode and len(record['recid']) == 24:
+            record['_id'] = ObjectId(record.pop('recid'))
+        mongo.db.ofertas.save( record )
+
+    return jsonify( { 'status': "success" } )
+
+
+
 
 @app.route('/ofertas/mias', methods=['POST', 'GET'])
 def ofertas_mias():
-
-    # if request.form['cmd'] == 'save-records':
-    #     records = {}
-    #     for key in request.form:
-    #         if key.startswith("changes"):
-    #             # parse 'changes' key submited by w2ui
-    #             # changes[0][desc]: ffff
-    #             (n, pkey) = key.split('][')
-    #             pkey = pkey[0:-1]
-    #             if pkey != 'recid':
-    #                 if n in records:
-    #                     records[n][pkey] = request.form[key]
-    #                 else:
-    #                     records[n] = { pkey: request.form[key] }
-                    
-    #     app.logger.debug(pformat(records))
-    # elif request.form['cmd'] == 'get-records':
-    #      pass
-    # else:
-    #     pass
-
-    #app.logger.debug(pformat(request.form))
-    app.logger.debug(pformat(parse_w2ui_request_form(request.form)))
-
+    
     ofertas = mongo.db.ofertas.find()
     records = []
     for o in ofertas:
-        o['_id'] = str(o['_id'])
+        # o['_id'] = str(o['_id'])
+        o['recid'] = str(o.pop('_id'))
         records.append(o)
 
     return jsonify( { 'status': "success", 'total':len(records), 'records': records} )
        
-#        
-#            { recid: 1, titulo: 'puesto', desc: 'Tianguis el 100', email: 'jdoe@gmail.com', vigencia: '4/3/2012' },
-#        
-    # app.logger.debug(pprint.pformat(records))
-    # app.logger.debug(session['username'])
+
+
+
 
 
 # /overtas/inbox
