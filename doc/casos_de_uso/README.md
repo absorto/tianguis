@@ -47,6 +47,10 @@ consolidar viajes.
 Un lugar también puede ser privado, en cuyo caso sólo comprador y
 vendedor se enteran.
 
+# RSS, microblog, etc.
+
+Anuncios extra-públicos queremos publicar con tecnología especializada etc.
+
 -------------------------------------------------------------------------------
 # Casos de uso #
 
