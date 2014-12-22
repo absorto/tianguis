@@ -93,7 +93,7 @@ var config = {
             items: [
                 { id: 'add', type: 'button', caption: 'Nueva oferta', icon: 'w2ui-icon-plus' },
                 { type: 'break',  id: 'break0' },
-                { id: 'save', type: 'button', caption: 'Guardar', icon: 'w2ui-icon-save' }
+                { id: 'save', type: 'button', caption: 'Guardar', icon: 'w2ui-icon-check' }
             ],
             onClick: function (event) {
                 if (event.target == 'add') {
