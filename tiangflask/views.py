@@ -12,32 +12,25 @@ app = Flask("tianguis")
 mongo = PyMongo(app)
 
 
-############
-# anuncios #
-############
-
-@app.route('/anuncios/save', methods=['POST'])
-def anuncio_save():
-    try:
-#        pprint.pprint(request)
-        app.logger.debug('A value for debugging')
-        app.logger.warning('A warning occurred (%d apples)', 42)
-        app.logger.error('An error occurred')
-        return jsonify({ "status": "success"} )
-    except:
-        return jsonify({ "status": "error",
-                         "message": pformat(sys.exc_info()[0]) })
- 
 
 @app.route('/ofertas/save', methods=['POST', 'GET'])
 def ofertas_save():
-    for record in request.json:
-        app.logger.debug(pformat(record))
+# asi tendra que hacerse despues para autentificacion
+# bulk = hdd.initialize_ordered_bulk_op()
+# for product, product_id in data:
+#     hdd.find({'_id': product_id}).update({'$set': {'Speed': products['Speed'],
+#                                                    'capacity': products['capacity'],
+#                                                    'format': products['format']}})
+#bulk.execute()
 
+    for record in request.json:
         if type(record['recid']) == int:
+            # sin llave? has de ser nuevo
             record.pop('recid')
         elif type(record['recid']) == unicode and len(record['recid']) == 24:
+            # ah, actualizando
             record['_id'] = ObjectId(record.pop('recid'))
+        
         mongo.db.ofertas.save( record )
 
     return jsonify( { 'status': "success" } )
@@ -51,7 +44,6 @@ def ofertas_mias():
     ofertas = mongo.db.ofertas.find()
     records = []
     for o in ofertas:
-        # o['_id'] = str(o['_id'])
         o['recid'] = str(o.pop('_id'))
         records.append(o)
 

@@ -106,18 +106,11 @@ var config = {
                     $.ajax({
                         type: "POST",
                         url: "/ofertas/save",
-                        // The key needs to match your method's input parameter (case-sensitive).
                         data: JSON.stringify( w2ui.o_mias.records ),
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
-                        success: function(data){ console.log('guardeado'); },
-                        failure: function(errMsg) {
-                            console.log(errMsg);
-                        }
                     });
-
                 }
-
             }
 
         },
