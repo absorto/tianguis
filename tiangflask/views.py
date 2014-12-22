@@ -15,25 +15,21 @@ mongo = PyMongo(app)
 
 @app.route('/ofertas/save', methods=['POST', 'GET'])
 def ofertas_save():
-# asi tendra que hacerse despues para autentificacion
-# bulk = hdd.initialize_ordered_bulk_op()
-# for product, product_id in data:
-#     hdd.find({'_id': product_id}).update({'$set': {'Speed': products['Speed'],
-#                                                    'capacity': products['capacity'],
-#                                                    'format': products['format']}})
-#bulk.execute()
-
-    for record in request.json:
+    bulk = mongo.db.ofertas.initialize_ordered_bulk_op()
+    for record in request.get_json():
         if type(record['recid']) == int:
             # sin llave? has de ser nuevo
             record.pop('recid')
+            record['usuario'] = session['username']
+            bulk.insert( record )
         elif type(record['recid']) == unicode and len(record['recid']) == 24:
             # ah, actualizando
-            record['_id'] = ObjectId(record.pop('recid'))
-        
-        mongo.db.ofertas.save( record )
+            recid = ObjectId(record.pop('recid'))
+            bulk.find( {'_id': recid,
+                        'usuario': session['username']}).update({'$set': record})
+    result = bulk.execute()
 
-    return jsonify( { 'status': "success" } )
+    return jsonify( { 'status': "success", 'result': result } )
 
 
 
@@ -41,7 +37,7 @@ def ofertas_save():
 @app.route('/ofertas/mias', methods=['POST', 'GET'])
 def ofertas_mias():
     
-    ofertas = mongo.db.ofertas.find()
+    ofertas = mongo.db.ofertas.find({'usuario': session['username']})
     records = []
     for o in ofertas:
         o['recid'] = str(o.pop('_id'))
