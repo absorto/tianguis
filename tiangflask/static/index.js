@@ -34,12 +34,12 @@ var config = {
             { id: 'ofertas', text: 'Ofertas', group: true, expanded: true, nodes: [
                 { id: 'o_mias', text: 'Mías', img: ' w2ui-icon-columns', selected: true },
                 { id: 'o_inbox', text: 'Inbox', img: 'icon-folder' },
-                { id: 'o_mercado', text: 'En el mercado', img: 'icon-page' },
+                { id: 'o_mercado', text: 'En el mercado', img: 'icon-page' }
             ]},
             { id: 'pedidos', text: 'Pedidos', group: true, expanded: true, nodes: [
                 { id: 'p_mias', text: 'Mis pedidos', img: 'w2ui-icon-columns' },
                 { id: 'p_inbox', text: 'Inbox', img: 'icon-folder' },
-                { id: 'p_mercado', text: 'En el mercado', img: 'icon-page' },
+                { id: 'p_mercado', text: 'En el mercado', img: 'icon-page' }
             ]}
 
         ],
@@ -110,7 +110,7 @@ var config = {
                         url: "/ofertas/save",
                         data: JSON.stringify( w2ui.o_mias.records ),
                         contentType: "application/json; charset=utf-8",
-                        dataType: "json",
+                        dataType: "json"
                     });
                 }
             }
@@ -120,7 +120,7 @@ var config = {
         columns: [
             { field: 'titulo', caption: 'Título', size: '180px', editable: { type: 'text' } },
             { field: 'desc', caption: 'Descripción', size: '180px', editable: { type: 'text' } },
-            { field: 'vigencia', caption: 'Vigencia', size: '120px', sortable: true, editable: { type: 'date' },   },
+            { field: 'vigencia', caption: 'Vigencia', size: '120px', sortable: true, editable: { type: 'date' }},
             { field: 'publicado', caption: 'Publicado', size: '100px', sortable: true, resizable: true, 
                 editable: { type: 'checkbox' } 
             },
@@ -141,10 +141,10 @@ var config = {
     /////////////
     // inbox //
     /////////////
-    o_inbox: { 
+  o_inbox: { 
         name: 'o_inbox',
                 show: {
-                    toolbar : true,
+                    toolbar : true
                 },
         searches: [
             { type: 'date', field: 'vigencia', caption: 'Vigencia' }
@@ -155,7 +155,7 @@ var config = {
             { field: 'titulo', caption: 'Título', size: '180px' },
             { field: 'desc', caption: 'Descripción', size: '180px' },
             { field: 'vigencia', caption: 'Vigencia', size: '120px', sortable: true },
-            { field: 'lugar', caption: 'Lugar', size: '180px'},
+            { field: 'lugar', caption: 'Lugar', size: '180px'}
         ],
 
         onClick: function (event) {
@@ -163,12 +163,10 @@ var config = {
             openPedidoItemPopup(event.recid);
         },
         
-        records: [
+      records: [
           { recid: 1, usuario: "la granja", titulo: 'puesto', desc: 'Tianguis el 100', email: 'jdoe@gmail.com', vigencia: '4/3/2012', lugar: 'mercado100' },
-          { recid: 2, usuario: "la nicolasa", titulo: 'A domicilio', desc: 'fruta y verdura otoñal', email: 'jdoe@gmail.com', vigencia: '4/3/2012', lugar: 'indefinido' },
-        ],
-
-        
+          { recid: 2, usuario: "la nicolasa", titulo: 'A domicilio', desc: 'fruta y verdura otoñal', email: 'jdoe@gmail.com', vigencia: '4/3/2012', lugar: 'indefinido' }
+        ]
     }
 }
 
@@ -181,7 +179,7 @@ function o_itemgrid(recid) {
         show: {
             toolbar: true,
             toolbarDelete: true,
-            toolbarSave: true,
+            toolbarSave: true
         },
 //        url: '/'+recid,
 
@@ -223,20 +221,20 @@ function p_itemgrid(recid) {
         show: {
             toolbar: true,
             toolbarDelete: true,
-            toolbarSave: true,
+            toolbarSave: true
         },
 //        url: '/'+recid,
 
         columns: [                
-            { field: 'nombre', caption: 'nombre', size: '120px', sortable: true, resizable: true, },
-            { field: 'desc', caption: 'descripción', size: '50%', sortable: true, resizable: true, },
-            { field: 'presentacion', caption: 'presentación', size: '100px', sortable: true, resizable: true, },
+            { field: 'nombre', caption: 'nombre', size: '120px', sortable: true, resizable: true },
+            { field: 'desc', caption: 'descripción', size: '50%', sortable: true, resizable: true },
+            { field: 'presentacion', caption: 'presentación', size: '100px', sortable: true, resizable: true },
             { field: 'precio', caption: 'precio', size: '80px', resizable: true, render: 'money' },
             { field: 'cantidad', caption: 'cantidad', size: '80px', resizable: true, render: 'float:3',
-              editable: { type: 'float' } },
+              editable: { type: 'float' } }
         ],
         records: [
-            { recid: 1, nombre: "jitomate", desc: 'hidroponico', presentacion: 'kg', cantidad: 2.2 },
+            { recid: 1, nombre: "jitomate", desc: 'hidroponico', presentacion: 'kg', cantidad: 2.2 }
         ]
     }
 }
