@@ -1,8 +1,6 @@
 from flask import Flask, session, redirect, url_for, escape, request, jsonify
 from flask.ext.pymongo import PyMongo
 from bson.objectid import ObjectId
-from w2ui import parse_w2ui_request_form
-
 
 from pprint import pformat
 import sys
