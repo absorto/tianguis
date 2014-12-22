@@ -98,7 +98,9 @@ var config = {
             onClick: function (event) {
                 if (event.target == 'add') {
                     console.log('dafuq');
-                    w2ui.o_mias.add({ recid: w2ui.o_mias.records.length + 1 });
+                    var newid = w2ui.o_mias.records.length + 1;
+                    w2ui.o_mias.add({ recid: newid });
+                    w2ui.o_mias.select( newid );
                 }
                 if (event.target == 'save') {
                     //console.log(w2ui.o_mias.records);
