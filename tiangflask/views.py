@@ -1,13 +1,31 @@
-from flask import Flask, session, redirect, url_for, escape, request, jsonify
+from flask import Flask, session, redirect, url_for, escape, request, jsonify, render_template
 from flask.ext.pymongo import PyMongo
 from bson.objectid import ObjectId
 
+from sh import find, cd
+
 from pprint import pformat
 import sys
-import re
+
 
 app = Flask("tianguis")
 mongo = PyMongo(app)
+
+
+@app.route('/')
+def index():
+
+    if 'username' in session:
+        username = session['username']
+    else:
+        username = False
+
+    scripts = [n.strip() for n in find("static/js", "-iname", "*.js", _iter=True)]
+    
+    return render_template('base.html',
+                           scripts=scripts,
+                           username=username)
+
 
 
 
@@ -66,11 +84,6 @@ def ofertas_mias():
 # http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-v-user-logins #
 # Falso login                                                                    #
 ##################################################################################
-@app.route('/')
-def index():
-    if 'username' in session:
-        return 'Logged in as %s. <br><a href="/static/index.html">home</a>' % escape(session['username'])
-    return 'You are not logged in. <a href="/login">login</a>'
 
 
 @app.route('/login', methods=['GET', 'POST'])
