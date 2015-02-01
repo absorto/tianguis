@@ -12,13 +12,6 @@
 
     <script type="text/javascript"
             src="/static/bower_components/tinymce/tinymce.min.js"></script>
-<script type="text/javascript">
-tinymce.init({
-selector: "textarea",
-menubar : false
- });
-</script>
-
   </head>
 
   <body>
@@ -27,12 +20,8 @@ menubar : false
     {% else %}
         You are not logged in. <a href="/login">login</a>
     {% endif %}    
-    <div id="main" style="width: 100%; height: 500px;"></div>
+    <div id="main" style="width: 100%; height: 700px;"></div>
 
-<!-- Place this in the body of the page content -->
-<form method="post">
-    <textarea></textarea>
-</form>
 
   </body>
 
