@@ -13,9 +13,9 @@ var unidades = ['kg', 'bolsa', 'ramo', 'litro', 'domo', 'manojo', 'pieza'];
 
 // initialization
 $(function () {
-  $('#main').w2layout(layout);
-  w2ui.layout.content('left', $().w2sidebar(sidebar));
-  w2ui.layout.content('main', "aguas con el perro");
+  $('#main').w2layout(base_layout);
+  w2ui['base_layout'].content('left', $().w2sidebar(sidebar));
+  w2ui['base_layout'].content('main', $().w2grid(o_mias));
 //  w2ui.layout.content('main', $().w2grid(o_mias));
     
 //  w2ui.o_mias.autoLoad = false;

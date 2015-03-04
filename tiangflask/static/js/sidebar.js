@@ -18,8 +18,8 @@ var sidebar = { name: 'sidebar',
                 onClick: function (event) {
                   switch (event.target) {
                   case 'o_mias':
-                    w2ui.layout.content('main', 'w2ui.o_mias');
-                    w2ui.layout.content('preview', 'w2ui.o_mias');
+                    w2ui.layout.content('main', $().w2grid(o_mias));
+                    w2ui.layout.content('preview', 'preview oferta');
                     break;
                   case 'o_inbox':
                     $().w2grid(o_inbox);
