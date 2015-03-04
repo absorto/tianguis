@@ -6,6 +6,27 @@ function        asunto(recid) {
   }
 }
 
+
+var o_edit_top_form = { 
+  name  : 'o_edit_top_form',
+//  url   : 'server/post',
+  fields: [
+    { field: 'first_name', type: 'text', required: true },
+    { field: 'last_name',  type: 'text', required: true },
+    { field: 'comments',   type: 'text'}
+  ],
+  toolbar: {
+    items: [
+      { id: 'spcer', type: 'spacer' },
+      { id: 'save', type: 'button', caption: 'guardar', img: 'icon-page'}
+    ],
+    onClick: function (event) {
+      if (event.target == 'save') w2ui.form.save();
+    }
+  }  
+}
+
+
 function o_edit_popup(recid) {
   w2popup.open({
     title   : asunto(recid),
@@ -15,7 +36,8 @@ function o_edit_popup(recid) {
     onOpen  : function (event) {
       event.onComplete = function () {
         $('#w2ui-popup #poplayout').w2layout(ad_layout);
-        w2ui.ad_layout.content('top', "formulario"); 
+        w2ui.ad_layout.content('top', "<div id='o_edit_toolbar'></div>");
+        $('#o_edit_toolbar').w2form(o_edit_top_form);
         w2ui.ad_layout.content('main', "<div id='editor'> <textarea></textarea> </div>");
         w2ui.ad_layout.content('preview', $().w2grid(o_itemgrid(recid)));
       };
@@ -26,6 +48,7 @@ function o_edit_popup(recid) {
       }
     },
     onClose: function(event) {
+      w2ui.o_edit_top_form.destroy();
       w2ui.o_itemgrid.destroy();
       w2ui.ad_layout.destroy();
     }
@@ -37,13 +60,15 @@ function o_edit_popup(recid) {
 
 
 
+
+
 function o_itemgrid(recid) {
     return { 
         name: 'o_itemgrid', 
         show: {
             toolbar: true,
             toolbarDelete: true,
-            toolbarSave: true
+            toolbarSave: false
         },
 //        url: '/'+recid,
 
