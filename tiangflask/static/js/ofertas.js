@@ -1,23 +1,36 @@
-function openOfertaItemPopup(recid) {
-    w2popup.open({
-        title   : 'items en la oferta '+recid,
-        width   : 900,
-        height  : 600,
-        body    : '<div id="poplayout" style="position: absolute; left: 5px; top: 5px; right: 5px; bottom: 5px;"></div>',
-        onOpen  : function (event) {
-          event.onComplete = function () {
-            $('#w2ui-popup #poplayout').w2layout(ad_layout);
-            w2ui.ad_layout.content('top', "formulario"); 
-            w2ui.ad_layout.content('main', "<div id='editor'> <textarea></textarea> </div>");
-            w2ui.ad_layout.content('preview', $().w2grid(o_itemgrid(recid)));
-            };
-        },
-        onToggle: function (event) { 
-            event.onComplete = function () {
-                w2ui.layout.resize();
-            }
-        }
-    });
+function        asunto(recid) {
+  if (recid=="nueva") {
+    return 'crear oferta nueva';
+  } else {
+    return 'editar oferta ' + recid;
+  }
+}
+
+function o_edit_popup(recid) {
+  w2popup.open({
+    title   : asunto(recid),
+    width   : 900,
+    height  : 600,
+    body    : '<div id="poplayout" style="position: absolute; left: 5px; top: 5px; right: 5px; bottom: 5px;"></div>',
+    onOpen  : function (event) {
+      event.onComplete = function () {
+        $('#w2ui-popup #poplayout').w2layout(ad_layout);
+        w2ui.ad_layout.content('top', "formulario"); 
+        w2ui.ad_layout.content('main', "<div id='editor'> <textarea></textarea> </div>");
+        w2ui.ad_layout.content('preview', $().w2grid(o_itemgrid(recid)));
+      };
+    },
+    onToggle: function (event) { 
+      event.onComplete = function () {
+        w2ui.layout.resize();
+      }
+    },
+    onClose: function(event) {
+      w2ui.o_itemgrid.destroy();
+      w2ui.ad_layout.destroy();
+    }
+      
+  });
 }
 
 

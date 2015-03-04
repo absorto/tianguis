@@ -18,7 +18,7 @@ var o_mias = {
     ],
     onClick: function (event) {
       if (event.target == 'add') {
-        openOfertaItemPopup("new");
+        o_edit_popup("nueva");
       }
     }
   },
@@ -34,7 +34,7 @@ var o_mias = {
 
 //   // abre lista de items
   onEdit: function(event) {
-    openOfertaItemPopup(event.recid);
+    o_edit_popup(event.recid);
   }}
 
 
