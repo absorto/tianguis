@@ -20,8 +20,8 @@ var ad_layout = {
   name: 'ad_layout',
   padding: 0,
   panels: [
-    { type: 'top', size: '20%', resizable: true, style: pstyle, content: "formulario" },
-    { type: 'main', size: '20%', resizable: true, style: pstyle, content: "<div id='editor'> <textarea></textarea> </div>" },
-    { type: 'preview', size: '60%', resizable: true, style: pstyle, content: '' },
+    { type: 'top', size: '40%', resizable: true },
+    { type: 'main', size: '50%', resizable: true },
+    { type: 'bottom', size: '10%', resizable: true },
   ]
 };
