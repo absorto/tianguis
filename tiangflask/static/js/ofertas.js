@@ -1,4 +1,4 @@
-function        asunto(recid) {
+function asunto(recid) {
   if (recid=="nueva") {
     return 'crear oferta nueva';
   } else {
@@ -7,23 +7,22 @@ function        asunto(recid) {
 }
 
 
+var people = ['George Washington', 'John Adams', 'Thomas Jefferson', 'James Buchanan', 'James Madison', 'Abraham Lincoln', 'James Monroe', 'Andrew Johnson', 'John Adams', 'Ulysses Grant', 'Andrew Jackson', 'Rutherford Hayes', 'Martin VanBuren', 'James Garfield', 'William Harrison', 'Chester Arthur', 'John Tyler', 'Grover Cleveland', 'James Polk', 'Benjamin Harrison', 'Zachary Taylor', 'Grover Cleveland', 'Millard Fillmore', 'William McKinley', 'Franklin Pierce', 'Theodore Roosevelt', 'John Kennedy', 'William Howard', 'Lyndon Johnson', 'Woodrow Wilson', 'Richard Nixon', 'Warren Harding', 'Gerald Ford', 'Calvin Coolidge', 'James Carter', 'Herbert Hoover', 'Ronald Reagan', 'Franklin Roosevelt', 'George Bush', 'Harry Truman', 'William Clinton', 'Dwight Eisenhower', 'George W. Bush', 'Barack Obama'];
+
 var o_edit_top_form = { 
   name  : 'o_edit_top_form',
-//  url   : 'server/post',
-  fields: [
-    { field: 'first_name', type: 'text', required: true },
-    { field: 'last_name',  type: 'text', required: true },
-    { field: 'comments',   type: 'text'}
+  //  url   : 'server/post',
+  fields: [ 
+    { name: 'asunto', type: 'text', required: true },
+    { name: 'destinatarios',
+      type: 'enum', 
+      items: people,
+      selected: [{ id: 0, text: 'John Adams' }, { id: 0, text: 'Thomas Jefferson' }],
+      openOnFocus: true,
+//      selected: [{ id: 0, text: 'John Adams' }, { id: 0, text: 'Thomas Jefferson' }]
+    },
+    { name: 'cartel', type: 'textarea'}  
   ],
-  toolbar: {
-    items: [
-      { id: 'spcer', type: 'spacer' },
-      { id: 'save', type: 'button', caption: 'guardar', img: 'icon-page'}
-    ],
-    onClick: function (event) {
-      if (event.target == 'save') w2ui.form.save();
-    }
-  }  
 }
 
 
@@ -36,11 +35,21 @@ function o_edit_popup(recid) {
     onOpen  : function (event) {
       event.onComplete = function () {
         $('#w2ui-popup #poplayout').w2layout(ad_layout);
-        w2ui.ad_layout.content('top', "<div id='o_edit_toolbar'></div>");
-        $('#o_edit_toolbar').w2form(o_edit_top_form);
-        w2ui.ad_layout.content('main', "<div id='editor'> <textarea></textarea> </div>");
-        w2ui.ad_layout.content('preview', $().w2grid(o_itemgrid(recid)));
-      };
+        w2ui.ad_layout.content('top', "<div id='o_edit_top_form'></div>");
+        $('#o_edit_top_form').w2form(o_edit_top_form);
+        w2ui.ad_layout.content('main', $().w2grid(o_itemgrid(recid)));
+        w2ui.ad_layout.content('bottom', $().w2toolbar(
+          {
+            name: 'savebar',
+            items: [
+              { id: 'spcer', type: 'spacer' },
+              { id: 'save', type: 'button', caption: 'guardar', img: 'icon-page'}
+            ],
+            onClick: function (event) {
+              if (event.target == 'save') w2ui.form.save();
+            }
+          }));
+      }
     },
     onToggle: function (event) { 
       event.onComplete = function () {
