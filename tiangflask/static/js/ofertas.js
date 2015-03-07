@@ -5,8 +5,13 @@ var o_edit_top_form = {
   fields: [ 
     { field: 'asunto', type: 'text', required: true },
 
-    { field: 'field_enum', type: 'enum', required: true, 
-                options: { items: ['Adams, John', 'Johnson, Peter', 'Lewis, Frank', 'Cruz, Steve', 'Donnun, Nick'] } },
+    { field: 'destinatarios', type: 'enum', required: true, 
+      options: { items: ['Adams, John', 'Johnson, Peter', 'Lewis, Frank', 'Cruz, Steve', 'Donnun, Nick'] }},
+
+    { field: 'listas', type: 'enum',  
+      options: { items: ['todos', 'la roma', 'sur', 'veganos', 'tianguis el 100'],
+                 openOnFocus: true, }},
+    
     { field: 'cartel', type: 'textarea'}  
   ],
 }
@@ -14,11 +19,13 @@ var o_edit_top_form = {
 
 
 var o_edit_itemgrid = {
-  name: 'o_itemgrid', 
-  show: {
-    toolbar: true,
+  name  : 'o_itemgrid',
+  header: 'items en venta', 
+  show  : {
+    header       : true,
+    toolbar      : true,
     toolbarDelete: true,
-    toolbarSave: false
+    toolbarSave  : false
   },
 //        url: '/'+recid,
 
