@@ -31,20 +31,22 @@ def index():
 
 @app.route('/ofertas/save', methods=['POST', 'GET'])
 def ofertas_save():
-    bulk = mongo.db.ofertas.initialize_ordered_bulk_op()
-    for record in request.get_json():
-        if type(record['recid']) == int:
-            # sin llave? has de ser nuevo
-            record.pop('recid')
-            record['usuario'] = session['username']
-            bulk.insert( record )
-        elif type(record['recid']) == unicode and len(record['recid']) == 24:
-            # ah, actualizando
-            recid = ObjectId(record.pop('recid'))
-            bulk.find( {'_id': recid,
-                        'usuario': session['username']}).update({'$set': record})
-    result = bulk.execute()
+#    bulk = mongo.db.ofertas.initialize_ordered_bulk_op()
+    #for record in request.get_json():
+    app.logger.debug(request.get_json())
+    #     if type(record['recid']) == int:
+    #         # sin llave? has de ser nuevo
+    #         record.pop('recid')
+    #         record['usuario'] = session['username']
+    #         bulk.insert( record )
+    #     elif type(record['recid']) == unicode and len(record['recid']) == 24:
+    #         # ah, actualizando
+    #         recid = ObjectId(record.pop('recid'))
+    #         bulk.find( {'_id': recid,
+    #                     'usuario': session['username']}).update({'$set': record})
+    # result = bulk.execute()
 
+    result = 'hola'
     return jsonify( { 'status': "success", 'result': result } )
 
 

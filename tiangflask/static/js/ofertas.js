@@ -19,7 +19,7 @@ var o_edit_top_form = {
 
 
 var o_edit_itemgrid = {
-  name  : 'o_itemgrid',
+  name  : 'o_edit_itemgrid',
   header: 'items en venta', 
   show  : {
     header       : true,
@@ -35,7 +35,7 @@ var o_edit_itemgrid = {
     ],
     onClick: function (event) {
       if (event.target == 'add') {
-        w2ui.o_itemgrid.add({ recid: w2ui.o_itemgrid.records.length + 1 });
+        w2ui.o_edit_itemgrid.add({ recid: w2ui.o_edit_itemgrid.records.length + 1 });
       }
     }
   },
@@ -72,7 +72,23 @@ var o_edit_bottom_toolbar = {
     { id: 'save', type: 'button', caption: 'guardar', img: 'icon-page'}
   ],
   onClick: function (event) {
-    if (event.target == 'save') w2ui.form.save();
+    if (event.target == 'save') {
+      errors = w2ui.o_edit_top_form.validate( showErrors=true );
+      if (errors.length == 0) {
+        $.ajax({
+          type: "POST",
+          url: "/ofertas/save",
+          data: JSON.stringify( {'top_form': w2ui.o_edit_top_form.record,
+                                 'itemgrid': w2ui.o_edit_itemgrid.records} ),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          error: function(errMsg) {
+            console.log(errMsg);
+            w2ui.o_mias.error("AJAX error" + errMsg.responseText);
+          }
+        });
+      }
+    }
   }
 }
 
@@ -111,7 +127,7 @@ function o_edit_popup(recid) {
     },
     onClose: function(event) {
       w2ui.o_edit_top_form.destroy();
-      w2ui.o_itemgrid.destroy();
+      w2ui.o_edit_itemgrid.destroy();
       w2ui.savebar.destroy();
       w2ui.ad_layout.destroy();      
     }
