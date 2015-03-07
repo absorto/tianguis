@@ -31,9 +31,18 @@ def index():
 
 @app.route('/ofertas/save', methods=['POST', 'GET'])
 def ofertas_save():
-#    bulk = mongo.db.ofertas.initialize_ordered_bulk_op()
-    #for record in request.get_json():
-    app.logger.debug(request.get_json())
+
+    req   = request.get_json()
+    ad    = req['top_form']
+
+    items = []
+    for i in req['itemgrid']:
+        items.append(i['changes'])
+
+    ad.update( {'items': items} )
+    app.logger.debug(ad)
+
+#    bulk = mongo.db.ofertas.initialize_ordered_bulk_op()    
     #     if type(record['recid']) == int:
     #         # sin llave? has de ser nuevo
     #         record.pop('recid')
@@ -64,6 +73,22 @@ def ofertas_mias():
     return jsonify( { 'status': "success", 'total':len(records), 'records': records} )
        
 
+
+
+#    bulk = mongo.db.ofertas.initialize_ordered_bulk_op()
+    #for record in request.get_json():
+    app.logger.debug(request.get_json())
+    #     if type(record['recid']) == int:
+    #         # sin llave? has de ser nuevo
+    #         record.pop('recid')
+    #         record['usuario'] = session['username']
+    #         bulk.insert( record )
+    #     elif type(record['recid']) == unicode and len(record['recid']) == 24:
+    #         # ah, actualizando
+    #         recid = ObjectId(record.pop('recid'))
+    #         bulk.find( {'_id': recid,
+    #                     'usuario': session['username']}).update({'$set': record})
+    # result = bulk.execute()
 
 
 
