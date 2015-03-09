@@ -1,19 +1,23 @@
 
-var o_edit_top_form = { 
-  name  : 'o_edit_top_form',
-  //  url   : 'server/post',
-  fields: [ 
-    { field: 'asunto', type: 'text', required: true },
+function o_edit_top_form(recid) {
+  return { 
+    name  : 'o_edit_top_form',
+    recid : recid,
+    //  url   : 'server/post',
+    fields: [ 
+      { field: 'asunto', type: 'text', required: true },
+// TODO: get these from server      
+      { field: 'destinatarios', type: 'enum', required: true, 
+        options: { items: ['Adams, John', 'Johnson, Peter', 'Lewis, Frank', 'Cruz, Steve', 'Donnun, Nick'] }},
 
-    { field: 'destinatarios', type: 'enum', required: true, 
-      options: { items: ['Adams, John', 'Johnson, Peter', 'Lewis, Frank', 'Cruz, Steve', 'Donnun, Nick'] }},
-
-    { field: 'listas', type: 'enum',  
-      options: { items: ['todos', 'la roma', 'sur', 'veganos', 'tianguis el 100'],
-                 openOnFocus: true, }},
-    
-    { field: 'cartel', type: 'textarea'}  
-  ],
+// TODO: get these from server
+      { field: 'listas', type: 'enum',  
+        options: { items: ['todos', 'la roma', 'sur', 'veganos', 'tianguis el 100'],
+                   openOnFocus: true, }},
+      // TODO: use tinymce on textarea
+      { field: 'cartel', type: 'textarea'}  
+    ],
+  }
 }
 
 
@@ -78,8 +82,10 @@ var o_edit_bottom_toolbar = {
         $.ajax({
           type: "POST",
           url: "/ofertas/save",
-          data: JSON.stringify( {'top_form': w2ui.o_edit_top_form.record,
-                                 'itemgrid': w2ui.o_edit_itemgrid.records} ),
+          data: JSON.stringify( {
+            'recid'   : w2ui.o_edit_top_form.recid,
+            'top_form': w2ui.o_edit_top_form.record,
+            'itemgrid': w2ui.o_edit_itemgrid.records} ),
           contentType: "application/json; charset=utf-8",
           dataType: "json",
           error: function(errMsg) {
@@ -115,9 +121,9 @@ function o_edit_popup(recid) {
       event.onComplete = function () {
         $('#w2ui-popup #poplayout').w2layout(ad_layout);
         w2ui.ad_layout.content('top', "<div id='o_edit_top_form'></div>");
-        $('#o_edit_top_form').w2form(o_edit_top_form);
+        $('#o_edit_top_form').w2form(o_edit_top_form(recid));
         w2ui.ad_layout.content('main', $().w2grid(o_edit_itemgrid));
-        w2ui.ad_layout.content('bottom', $().w2toolbar( o_edit_bottom_toolbar));
+        w2ui.ad_layout.content('bottom', $().w2toolbar( o_edit_bottom_toolbar ));
       }
     },
     onToggle: function (event) { 
