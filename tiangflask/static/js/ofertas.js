@@ -14,8 +14,13 @@ function o_edit_top_form(recid) {
       { field: 'listas', type: 'enum',  
         options: { items: ['todos', 'la roma', 'sur', 'veganos', 'tianguis el 100'],
                    openOnFocus: true, }},
+      { field: 'vigencia', type: 'date',
+        options: { format: 'm/d/yyyy' }},
+
+      { field: 'publicada', type: 'checkbox', required: false },
+      
       // TODO: use tinymce on textarea
-      { field: 'cartel', type: 'textarea'}  
+      { field: 'cartel', type: 'textarea'}
     ],
   }
 }

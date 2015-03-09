@@ -26,6 +26,10 @@ var o_mias = {
   columns: [
     { field: 'asunto', caption: 'Asunto', size: '180px', },
     { field: 'vigencia', caption: 'Vigencia', size: '120px', sortable: true, },
+    { field: 'publicada', caption: 'Publicada', size: '120px', sortable: true, },
+//    { field: 'destinatarios', caption: 'Destinatarios', size: '180px', },
+    // TODO: un campo que de algun resumen de la oferta, quiza:
+    // cuantos productos, cuanto lleva vendido, etc.
   ],
 
   searches: [
