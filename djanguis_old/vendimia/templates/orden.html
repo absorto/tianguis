@@ -1,9 +1,0 @@
-<h1>{{ vendimia }}</h1>
-
-<h2>{{ orden }}</h2>
-
-<ul>
-{% for p in orden.pedido_set.all %}
-<li>{{ p.cantidad }} {{ p.producto }}</li>
-{% endfor %}
-</ul>
