@@ -76,7 +76,7 @@ var o_edit_bottom_toolbar = {
   name: 'savebar',
   items: [
     { id: 'spcer', type: 'spacer' },
-    { id: 'save', type: 'button', caption: 'guardar', img: 'icon-page'}
+    { id: 'save', type: 'button', caption: 'guardar y cerrar', img: 'icon-page'}
   ],
   onClick: function (event) {
     if (event.target == 'save') {
@@ -94,6 +94,9 @@ var o_edit_bottom_toolbar = {
           error: function(errMsg) {
             console.log(errMsg);
             w2ui.o_mias.error("AJAX error" + errMsg.responseText);
+          },
+          success: function() {
+            w2popup.close();
           }
         });
       }
@@ -115,8 +118,8 @@ function asunto(recid) {
 
 
 function o_edit_popup(record) {
-  console.log(record);
   w2popup.open({
+    name: 'aguas',
     title   : asunto(record.recid),
     width   : 900,
     height  : 600,
@@ -141,7 +144,8 @@ function o_edit_popup(record) {
       w2ui.o_edit_top_form.destroy();
       w2ui.o_edit_itemgrid.destroy();
       w2ui.savebar.destroy();
-      w2ui.ad_layout.destroy();      
+      w2ui.ad_layout.destroy();
+      w2ui.o_mias.reload();      
     }
   });
 }

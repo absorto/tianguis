@@ -37,15 +37,10 @@ def ofertas_save():
 
     recid = req['recid']
     ad    = req['top_form']
-    items = []
-    # for i in req['itemgrid']:
-    #     if 'changes' in i:
-    #         items.append(i['changes'])
-    #     else:            
     items = [i['changes'] if 'changes' in i else i for i in req['itemgrid']]
     ad.update( {'recid': recid,
                 'items': items} )
-    app.logger.debug(pformat(ad))    
+
     bulk = mongo.db.ofertas.initialize_ordered_bulk_op()    
     if ad['recid'] == 'nueva':
         # oferta nueva
@@ -83,7 +78,6 @@ def oferta(recid):
     ad = mongo.db.ofertas.find_one({'_id': ObjectId(recid),
                                     'usuario': session['username']})
     ad['recid'] = str(ad.pop('_id'))
-    app.logger.debug(ad)
     return jsonify( ad )
 
 
