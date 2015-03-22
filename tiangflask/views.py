@@ -34,12 +34,18 @@ def ofertas_save():
 
     # crea diccionario 'ad' a partir de dos widgets
     req   = request.get_json()
+
     recid = req['recid']
     ad    = req['top_form']
-    items = [i['changes'] for i in req['itemgrid']]
+    items = []
+    # for i in req['itemgrid']:
+    #     if 'changes' in i:
+    #         items.append(i['changes'])
+    #     else:            
+    items = [i['changes'] if 'changes' in i else i for i in req['itemgrid']]
     ad.update( {'recid': recid,
                 'items': items} )
-    
+    app.logger.debug(pformat(ad))    
     bulk = mongo.db.ofertas.initialize_ordered_bulk_op()    
     if ad['recid'] == 'nueva':
         # oferta nueva

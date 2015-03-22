@@ -38,12 +38,10 @@ var o_mias = {
 
 //   // abre lista de items
   onEdit: function(event) {
-    o_edit_popup(event.recid);
-  }}
+    $.get('/ofertas/'+ event.recid,
+          function(record) {
+            o_edit_popup(record);
+          } )
+  } 
 
-
-
-
-
-
-
+}

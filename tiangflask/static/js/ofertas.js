@@ -1,8 +1,8 @@
 
-function o_edit_top_form(recid) {
+function o_edit_top_form(record) {
   return { 
     name  : 'o_edit_top_form',
-    recid : recid,
+    recid : record.recid,
     //  url   : 'server/post',
     fields: [ 
       { field: 'asunto', type: 'text', required: true },
@@ -63,8 +63,6 @@ var o_edit_itemgrid = {
       editable: { type: 'money' }
     },
   ],
-  records: [
-  ]
 }
 
 
@@ -116,9 +114,10 @@ function asunto(recid) {
 }
 
 
-function o_edit_popup(recid) {
+function o_edit_popup(record) {
+  console.log(record);
   w2popup.open({
-    title   : asunto(recid),
+    title   : asunto(record.recid),
     width   : 900,
     height  : 600,
     body    : '<div id="poplayout" style="position: absolute; left: 5px; top: 5px; right: 5px; bottom: 5px;"></div>',
@@ -126,8 +125,10 @@ function o_edit_popup(recid) {
       event.onComplete = function () {
         $('#w2ui-popup #poplayout').w2layout(ad_layout);
         w2ui.ad_layout.content('top', "<div id='o_edit_top_form'></div>");
-        $('#o_edit_top_form').w2form(o_edit_top_form(recid));
+        $('#o_edit_top_form').w2form(o_edit_top_form(record));
+        w2ui.o_edit_top_form.record = record;
         w2ui.ad_layout.content('main', $().w2grid(o_edit_itemgrid));
+        w2ui.o_edit_itemgrid.records = record.items;        
         w2ui.ad_layout.content('bottom', $().w2toolbar( o_edit_bottom_toolbar ));
       }
     },
