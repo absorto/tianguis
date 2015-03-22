@@ -71,10 +71,19 @@ def ofertas_mias():
        
 
 
+@app.route('/ofertas/<recid>', methods=['POST', 'GET'])
+def oferta(recid):
+
+    ad = mongo.db.ofertas.find_one({'_id': ObjectId(recid),
+                                    'usuario': session['username']})
+    ad['recid'] = str(ad.pop('_id'))
+    app.logger.debug(ad)
+    return jsonify( ad )
+
 
 #    bulk = mongo.db.ofertas.initialize_ordered_bulk_op()
     #for record in request.get_json():
-    app.logger.debug(request.get_json())
+#    app.logger.debug(request.get_json())
     #     if type(record['recid']) == int:
     #         # sin llave? has de ser nuevo
     #         record.pop('recid')
