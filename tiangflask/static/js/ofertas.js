@@ -46,6 +46,10 @@ var o_edit_itemgrid = {
       if (event.target == 'add') {
         w2ui.o_edit_itemgrid.add({ recid: w2ui.o_edit_itemgrid.records.length + 1 });
       }
+      if (event.target == 'delete') {
+        w2ui.o_edit_itemgrid.add({ recid: w2ui.o_edit_itemgrid.records.length + 1 });
+      }
+      
     }
   },
 
@@ -119,10 +123,10 @@ function asunto(recid) {
 
 function o_edit_popup(record) {
   w2popup.open({
-    name: 'aguas',
     title   : asunto(record.recid),
     width   : 900,
     height  : 600,
+    showMax : true,
     body    : '<div id="poplayout" style="position: absolute; left: 5px; top: 5px; right: 5px; bottom: 5px;"></div>',
     onOpen  : function (event) {
       event.onComplete = function () {
@@ -137,7 +141,7 @@ function o_edit_popup(record) {
     },
     onToggle: function (event) { 
       event.onComplete = function () {
-        w2ui.layout.resize();
+        w2ui.ad_layout.resize();
       }
     },
     onClose: function(event) {

@@ -18,7 +18,9 @@ var o_mias = {
     ],
     onClick: function (event) {
       if (event.target == 'add') {
-        o_edit_popup("nueva");
+        o_edit_popup({'recid': "nueva",
+                      'items': []
+                     });
       }
     }
   },
