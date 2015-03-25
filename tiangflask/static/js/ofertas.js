@@ -30,9 +30,6 @@ function o_edit_top_form(record) {
 var o_edit_itemgrid = {
   name  : 'o_edit_itemgrid',
   header: 'items en venta',
-  autoLoad: false,
-  multiSelect: false,
-  url: '',
   show  : {
     header       : true,
     toolbar      : true,
@@ -67,7 +64,6 @@ var o_edit_itemgrid = {
       editable: { type: 'money' }
     },
   ],
-  records: []
 }
 
 
@@ -136,7 +132,7 @@ function o_edit_popup(record) {
         $('#o_edit_top_form').w2form(o_edit_top_form(record));
         w2ui.o_edit_top_form.record = record;
         w2ui.ad_layout.content('main', $().w2grid(o_edit_itemgrid));
-        w2ui.o_edit_itemgrid.records = record.items;        
+        w2ui.o_edit_itemgrid.add(record.items);
         w2ui.ad_layout.content('bottom', $().w2toolbar( o_edit_bottom_toolbar ));
         this.max();
         w2ui.ad_layout.resize();
