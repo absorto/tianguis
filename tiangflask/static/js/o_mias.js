@@ -21,8 +21,21 @@ var o_mias = {
         o_edit_popup({'recid': "nueva",
                       'items': []
                      });
-      }
+      }      
     }
+  },
+
+  
+  onEdit: function(event) {
+    $.get('/ofertas/'+ event.recid,
+          function(record) {
+            o_edit_popup(record);
+          } )
+  } ,
+
+  onDelete: function(event) {
+    console.log( this.last.sel_recid );
+
   },
   
   columns: [
@@ -36,14 +49,7 @@ var o_mias = {
 
   searches: [
     { type: 'date', field: 'vigencia', caption: 'Vigencia' }
-  ],
+  ]
 
-//   // abre lista de items
-  onEdit: function(event) {
-    $.get('/ofertas/'+ event.recid,
-          function(record) {
-            o_edit_popup(record);
-          } )
-  } 
 
 }
