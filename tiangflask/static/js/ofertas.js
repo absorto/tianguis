@@ -44,10 +44,6 @@ var o_edit_itemgrid = {
       if (event.target == 'add') {
         w2ui.o_edit_itemgrid.add({ recid: w2ui.o_edit_itemgrid.records.length + 1 });
       }
-      if (event.target == 'delete') {
-        w2ui.o_edit_itemgrid.add({ recid: w2ui.o_edit_itemgrid.records.length + 1 });
-      }
-      
     }
   },
   columns: [                
