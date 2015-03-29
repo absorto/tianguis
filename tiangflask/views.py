@@ -28,7 +28,6 @@ def index():
 
 @app.route('/ofertas/save', methods=['POST', 'GET'])
 def ofertas_save():
-
     # crea diccionario 'ad' a partir de dos widgets
     req   = request.get_json()
 
@@ -65,7 +64,20 @@ def ofertas_save():
 
 @app.route('/ofertas/mias', methods=['POST', 'GET'])
 def ofertas_mias():
-    
+
+
+    if request.form['cmd']==u'delete-records':
+        
+        # grab IDs from the request
+        for f,v in request.form.viewitems():
+            if f == 'selected[]':
+                recids = v
+
+        # remove them
+        for recid in recids:
+            mongo.db.ofertas.remove({"_id":ObjectId(recid)})
+        
+
     ofertas = mongo.db.ofertas.find({'usuario': session['username']})
     records = []
     for o in ofertas:
@@ -90,7 +102,10 @@ def oferta(recid):
     return jsonify( ad )
 
 
+# 'tis contains w2ui commands to web server
+#    app.logger.debug(pformat(request.form))
 
+#    app.logger.debug(pformat(request.get_json()))
 #    app.logger.debug(pformat(ad))
 
 # /overtas/inbox
