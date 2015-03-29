@@ -33,11 +33,6 @@ var o_mias = {
           } )
   } ,
 
-  onDelete: function(event) {
-    console.log( this.last.sel_recid );
-
-  },
-  
   columns: [
     { field: 'asunto', caption: 'Asunto', size: '180px', },
     { field: 'vigencia', caption: 'Vigencia', size: '120px', sortable: true, },
