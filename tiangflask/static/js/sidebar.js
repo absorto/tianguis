@@ -18,7 +18,7 @@ var sidebar = { name: 'sidebar',
                   },
                   { id: 'contactos_sidebar', text: 'Contactos', group: true, expanded: true,
                     nodes: [
-                      { id: 'contactos', text: 'Contactos', img: 'w2ui-icon-columns' },
+                      { id: 'contactos_grid', text: 'Contactos', img: 'w2ui-icon-columns' },
                       { id: 'listas', text: 'Listas', img: 'icon-folder' },
                     ]
                   },
@@ -28,36 +28,34 @@ var sidebar = { name: 'sidebar',
                 onClick: function (event) {
                   switch (event.target) {
                   case 'o_mias':
-                    w2ui.layout.content('main', $().w2grid(o_mias));
-                    w2ui.layout.content('preview', 'preview oferta');
+                    if (!('o_mias' in w2ui)) {
+                      w2ui['base_layout'].content('main', $().w2grid(o_mias));
+                      w2ui.base_layout.content('preview', 'preview oferta');
+                    } else {
+                      w2ui['base_layout'].content('main', w2ui['o_mias']);
+                      w2ui.base_layout.content('preview', 'preview oferta');
+                    }
                     break;
                   case 'o_inbox':
-                    $().w2grid(o_inbox);
-                    w2ui.layout.content('main', 'w2ui.o_inbox');
                     break;
                   case 'o_mercado':
-                    //w2ui.layout.content('main', "la patita se ha enojado ya sabes por qué");
-                    $().w2grid(config.o_inbox);
-                    w2ui.layout.content('main', 'w2ui.o_inbox');
                     break;
                     
                   case 'p_mias':
-                    w2ui.layout.content('main', 'w2ui.grid1');
                     break;
                   case 'p_inbox':
-                    $().w2grid(config.o_inbox);
-                    w2ui.layout.content('main', 'w2ui.o_inbox');
                     break;
                   case 'p_mercado':
-                    //w2ui.layout.content('main', "la patita se ha enojado ya sabes por qué");
-                    $().w2grid(config.o_inbox);
-                    w2ui.layout.content('main', 'w2ui.o_inbox');
-
-                  case 'contactos_sidebar':
-                    w2ui.layout.content('main', $().w2grid(contactos));
-                    w2ui.layout.content('preview', 'preview oferta');
                     break;
 
+                  // contactos
+                  case 'contactos_grid':
+                    if (!('contactos_grid' in w2ui)) {
+                      w2ui['base_layout'].content('main', $().w2grid(contactos_grid));
+                    } else {
+                      w2ui['base_layout'].content('main', w2ui['contactos_grid']);
+                    }
+                    break;
                     
                   }
                   
