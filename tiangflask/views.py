@@ -88,6 +88,7 @@ def ofertas_mias():
        
 
 
+
 @app.route('/ofertas/<recid>', methods=['POST', 'GET'])
 def oferta(recid):
 
@@ -100,6 +101,38 @@ def oferta(recid):
         ad['items'][n]['recid'] = n
         
     return jsonify( ad )
+
+
+
+
+
+@app.route('/contactos', methods=['POST', 'GET'])
+def contactos():
+    app.logger.debug(pformat(request.form))
+
+    # if request.form['cmd']==u'delete-records':
+        
+    #     # grab IDs from the request
+    #     for f,v in request.form.viewitems():
+    #         if f == 'selected[]':
+    #             recids = v
+
+    #     # remove them
+    #     #for recid in recids:
+    #     #    mongo.db.ofertas.remove({"_id":ObjectId(recid)})
+        
+    if request.form['cmd']==u'save-records':
+        app.logger.debug(pformat(request.form))
+    # ofertas = mongo.db.ofertas.find({'usuario': session['username']})
+    # records = []
+    # for o in ofertas:
+    #     o['recid'] = str(o.pop('_id'))
+    #     records.append(o)
+
+    records = []
+    
+    return jsonify( { 'status': "success", 'total':len(records), 'records': records} )
+
 
 
 # 'tis contains w2ui commands to web server
