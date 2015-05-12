@@ -108,8 +108,6 @@ def oferta(recid):
 
 @app.route('/contactos', methods=['POST', 'GET'])
 def contactos():
-    app.logger.debug(pformat(request.form))
-
     # if request.form['cmd']==u'delete-records':
         
     #     # grab IDs from the request
@@ -121,18 +119,34 @@ def contactos():
     #     #for recid in recids:
     #     #    mongo.db.ofertas.remove({"_id":ObjectId(recid)})
         
-    if request.form['cmd']==u'save-records':
-        app.logger.debug(pformat(request.form))
-    # ofertas = mongo.db.ofertas.find({'usuario': session['username']})
-    # records = []
-    # for o in ofertas:
-    #     o['recid'] = str(o.pop('_id'))
-    #     records.append(o)
+    contactos = mongo.db.contactos.find({'usuario': session['username']})
+    records = []
+    for c in contactos:
+        c['recid'] = str(c.pop('_id'))
+        records.append(c)
 
     records = []
     
     return jsonify( { 'status': "success", 'total':len(records), 'records': records} )
 
+
+
+@app.route('/contactos/save', methods=['POST', 'GET'])
+def contactos_save():
+    app.logger.debug(pformat(request.form))
+
+    if request.form['cmd']==u'save-records':
+        app.logger.debug(pformat(request.form))
+    
+    items = []
+    for i in req['itemgrid']:
+        if 'changes' in i:
+            changes = i.pop('changes')
+            i.pop('recid')
+            i.update(changes)
+        items.append(i)
+    ad.update( {'recid': recid,
+                'items': items} )
 
 
 # 'tis contains w2ui commands to web server
