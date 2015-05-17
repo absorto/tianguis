@@ -133,20 +133,32 @@ def contactos():
 
 @app.route('/contactos/save', methods=['POST', 'GET'])
 def contactos_save():
-    app.logger.debug(pformat(request.form))
 
-    if request.form['cmd']==u'save-records':
-        app.logger.debug(pformat(request.form))
+    req = request.get_json()
     
     items = []
     for i in req['itemgrid']:
         if 'changes' in i:
             changes = i.pop('changes')
-            i.pop('recid')
+            # recid = i.pop('recid')
             i.update(changes)
         items.append(i)
-    ad.update( {'recid': recid,
-                'items': items} )
+
+    app.logger.debug(pformat(items))        
+    # bulk = mongo.db.ofertas.initialize_ordered_bulk_op()    
+    # if ad['recid'] == 'nueva':
+    #     # oferta nueva
+    #     ad.pop('recid')
+    #     ad['usuario'] = session['username']
+    #     bulk.insert( ad )
+    # else:
+    #     # ah, actualizando
+    #     recid = ObjectId(ad.pop('recid'))
+    #     bulk.find( {'_id'    : recid,
+    #                 'usuario': session['username'] } ).update({'$set': ad}) 
+    # result = bulk.execute()
+    result = ''
+    return jsonify( { 'status': "success", 'result': result } )
 
 
 # 'tis contains w2ui commands to web server
