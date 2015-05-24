@@ -43,8 +43,10 @@ contactos_grid = {
             console.log(errMsg);
             w2ui.o_mias.error("AJAX error" + errMsg.responseText);
           },
-          success: function() {
-            w2popup.close();
+          success: function(a) {
+            console.log(a);
+            w2ui.contactos_grid.mergeChanges();
+
           }})}}      
   }
 };
