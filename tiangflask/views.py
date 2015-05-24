@@ -117,6 +117,16 @@ def oferta(recid):
 
 @app.route('/contactos', methods=['POST', 'GET'])
 def contactos():
+    if request.form['cmd']==u'delete-records':
+        # grab IDs from the request
+        for f,v in request.form.viewitems():
+            if f == 'selected[]':
+                recids = v
+
+        # remove them
+        for recid in recids:
+            mongo.db.contactos.remove({"_id":ObjectId(recid)})
+        
 
     contactos = mongo.db.contactos.find({'usuario': session['username']})
     records = []
@@ -156,7 +166,6 @@ def contactos_save():
                     'usuario': session['username'] } ).update({'$set': item}) 
     result = bulk.execute()
 
-    app.logger.debug(pformat(result))            
 #    result = ''
     return jsonify( { 'status': "success", 'result': result } )
 
