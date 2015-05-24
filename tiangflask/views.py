@@ -123,8 +123,6 @@ def contactos():
     for c in contactos:
         c['recid'] = str(c.pop('_id'))
         records.append(c)
-
-#    records = []
     
     return jsonify( { 'status': "success", 'total':len(records), 'records': records} )
 
