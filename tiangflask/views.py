@@ -117,24 +117,14 @@ def oferta(recid):
 
 @app.route('/contactos', methods=['POST', 'GET'])
 def contactos():
-    # if request.form['cmd']==u'delete-records':
-        
-    #     # grab IDs from the request
-    #     for f,v in request.form.viewitems():
-    #         if f == 'selected[]':
-    #             recids = v
 
-    #     # remove them
-    #     #for recid in recids:
-    #     #    mongo.db.ofertas.remove({"_id":ObjectId(recid)})
-        
     contactos = mongo.db.contactos.find({'usuario': session['username']})
     records = []
     for c in contactos:
         c['recid'] = str(c.pop('_id'))
         records.append(c)
 
-    records = []
+#    records = []
     
     return jsonify( { 'status': "success", 'total':len(records), 'records': records} )
 
@@ -153,20 +143,23 @@ def contactos_save():
             i.update(changes)
         items.append(i)
 
-    app.logger.debug(pformat(items))        
-    # bulk = mongo.db.ofertas.initialize_ordered_bulk_op()    
-    # if ad['recid'] == 'nueva':
-    #     # oferta nueva
-    #     ad.pop('recid')
-    #     ad['usuario'] = session['username']
-    #     bulk.insert( ad )
-    # else:
-    #     # ah, actualizando
-    #     recid = ObjectId(ad.pop('recid'))
-    #     bulk.find( {'_id'    : recid,
-    #                 'usuario': session['username'] } ).update({'$set': ad}) 
-    # result = bulk.execute()
-    result = ''
+
+    bulk = mongo.db.contactos.initialize_ordered_bulk_op()
+    for item in items:
+        if item['recid'].startswith('nueva'):
+            # oferta nueva
+            item.pop('recid')
+            item['usuario'] = session['username']
+            bulk.insert( item )
+        else:
+            # ah, actualizando
+            recid = ObjectId(item.pop('recid'))
+            bulk.find( {'_id'    : recid,
+                    'usuario': session['username'] } ).update({'$set': item}) 
+    result = bulk.execute()
+
+    app.logger.debug(pformat(result))            
+#    result = ''
     return jsonify( { 'status': "success", 'result': result } )
 
 
