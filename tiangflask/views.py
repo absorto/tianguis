@@ -17,10 +17,19 @@ def index():
     else:
         username = False
 
+    # auto mode, but b0rked
     scripts = [n.strip() for n in find("static/js", "-iname", "*.js", _iter=True)]
-    
-    return render_template('base.html',
-                           scripts=scripts,
+
+    scripts = ["static/js/index.js",
+               "static/js/sidebar.js",
+               "static/js/ofertas.js",
+               "static/js/contactos.js",
+               "static/js/editor.js",
+               "static/js/pedidos.js",
+               "static/js/layouts.js",
+               "static/js/o_mias.js",
+               "static/js/o_inbox.js",]
+    return render_template('base.html', scripts=scripts,
                            username=username)
 
 
