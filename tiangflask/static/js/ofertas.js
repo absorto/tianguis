@@ -8,12 +8,10 @@ function o_edit_top_form(record) {
       { field: 'asunto', type: 'text', required: true },
 // TODO: get these from server      
       { field: 'destinatarios', type: 'enum', required: true, 
-        options: { items: ['Adams, John', 'Johnson, Peter', 'Lewis, Frank', 'Cruz, Steve', 'Donnun, Nick'] }},
+        options: {
+          url: '/contactos'
+        }},
 
-// TODO: get these from server
-      { field: 'listas', type: 'enum',  
-        options: { items: ['todos', 'la roma', 'sur', 'veganos', 'tianguis el 100'],
-                   openOnFocus: true, }},
       { field: 'vigencia', type: 'date',
         options: { format: 'm/d/yyyy' }},
 
