@@ -117,18 +117,28 @@ def oferta(recid):
 
 @app.route('/contactos', methods=['POST', 'GET'])
 def contactos():
-    if request.form['cmd']==u'delete-records':
-        # grab IDs from the request
-        for f,v in request.form.viewitems():
-            if f == 'selected[]':
-                recids = v
+    
+    # if request.form['cmd']==u'delete-records':
+    #     # grab IDs from the request
+    #     for f,v in request.form.viewitems():
+    #         if f == 'selected[]':
+    #             recids = v
+    #     # remove them
+    #     for recid in recids:
+    #         mongo.db.contactos.remove({"_id":ObjectId(recid)})
 
-        # remove them
-        for recid in recids:
-            mongo.db.contactos.remove({"_id":ObjectId(recid)})
-        
+    search = request.args.get('search')
+    if search == None:
+        contactos = mongo.db.contactos.find({'usuario': session['username']})
+    else:
+        query = {'usuario': session['username'],
+                 'nombre' : { '$regex': '*'+search+'*' }}
+        app.logger.debug(pformat(query))
+        contactos = mongo.db.contactos.find(query)
+
 
     contactos = mongo.db.contactos.find({'usuario': session['username']})
+    app.logger.debug(pformat([c for c in contactos]))    
     records = []
     for c in contactos:
         c['recid'] = str(c.pop('_id'))
