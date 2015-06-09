@@ -31,25 +31,62 @@ de análisis que le permitan mejor planificar.
 
 # Estado actual #
 
-Estamos en la etapa de diseño, nos concentramos en la documentación de
+Documentamos varios 
 [casos de uso](https://github.com/absorto/tianguis_django/tree/master/doc/casos_de_uso).
 
-Se trata de descripciones más o menos detalladas de las acciones que
-el usuario puede llevar a cabo en el sistema. Por ejemplo "publicar
-oferta": el usuario crea una lista de productos en venta, sugiere un
-lugar y hora, puede basarse en una plantilla, etc.
+Se están implementando con W2UI y flask.
 
-Los casos se documentan de manera aislada considerando que:
-1. diferentes usuarios pueden darle diferentes usos al sistema,
-   combinando casos a su gusto
-2. aislar la funcionalidad permitirá a los programadores dividirse el
-   trabajo enfocar sus esfuerzos por separado
+## Correr este software
 
-Con un buen diseño buscaremos implementaciones. Escribir una
-aplicación web parece una buena dirección, pero tal vez después sea
-hasta mejor hacer una aplicación p2p, con anonimidad, encripción y
-todas las bonanzas.
+Clona este repositorio:
+```bash
+git clone https://github.com/rgarcia-herrera/tianguis.git
+cd tianguis/tiangflask
+```
 
+### Ambiente virtual
+Recomiendo el uso de [virtualenv](virtualenv). Si usas docker, vagrant o guix tal vez quieras saltarte a la sección de Dependencias de Python.
+
+Crear un ambiente virtual:
+
+```bash
+$ virtualenv ~/environments/tiangflask
+Running virtualenv 
+[...]
+Installing setuptools, pip...done.
+```
+
+Activarlo:
+```bash
+$ source ~/environments/tiangflask/bin/activate
+(tiangflask)rodrigo@cranley:~$ 
+```
+
+### Instalar las dependencias de Python
+```bash
+pip install -r requirements.txt
+```
+
+### Instalar las dependencias de brew
+```bash
+cd static
+bower install jquery
+bower install tinymce
+bower install w2ui
+```
+
+### Mongodb
+
+views.py tiene la configuración de la base de datos Mongo.
+
+## Servidor web
+
+Para ver lo que llevamos:
+```bash
+python views.py
+```
+
+http://127.0.0.1:5000
 
 # Cómo colaborar #
 
