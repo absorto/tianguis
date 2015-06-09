@@ -67,7 +67,7 @@ $ source ~/environments/tiangflask/bin/activate
 pip install -r requirements.txt
 ```
 
-### Instalar las dependencias de brew
+### Instalar las dependencias de JavaScript con bower
 ```bash
 cd static
 bower install jquery
