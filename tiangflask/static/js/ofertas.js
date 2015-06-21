@@ -9,7 +9,7 @@ function o_edit_top_form(record) {
 // TODO: get these from server      
       { field: 'destinatarios', type: 'enum', required: true, 
         options: {
-          url: '/contactos'
+          url: '/contactos_drop'
         }},
 
       { field: 'vigencia', type: 'date',

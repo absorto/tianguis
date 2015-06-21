@@ -133,18 +133,46 @@ def contactos():
     else:
         query = {'usuario': session['username'],
                  'nombre' : { '$regex': '*'+search+'*' }}
-        app.logger.debug(pformat(query))
         contactos = mongo.db.contactos.find(query)
 
-
     contactos = mongo.db.contactos.find({'usuario': session['username']})
-    app.logger.debug(pformat([c for c in contactos]))    
+
     records = []
     for c in contactos:
         c['recid'] = str(c.pop('_id'))
         records.append(c)
+
+    app.logger.debug(pformat({ 'status': "success", 'total':len(records), 'records': records} ))
+        
+    return jsonify( { 'status': "success", 'total':len(records), 'items': records} )
+
+
+
+
+@app.route('/contactos_drop', methods=['POST', 'GET'])
+def contactos_drop():
+
+    search = request.args.get('search')
+
+    if search == None:
+        contactos = mongo.db.contactos.find({'usuario': session['username']})
+    else:
+        query = {'usuario': session['username'],
+                 'nombre' : { '$regex': search+'*' }}
+        app.logger.debug(pformat(query))        
+        contactos = mongo.db.contactos.find(query)
+
     
-    return jsonify( { 'status': "success", 'total':len(records), 'records': records} )
+    records = []
+    for c in contactos:
+        records.append( {'id': str(c.pop('_id')),
+                         'text': c['nombre']} )
+        records.append(c)
+
+    app.logger.debug(pformat({ 'status': "success", 'total':len(records), 'records': records} ))
+
+        
+    return jsonify( { 'status': "success", 'total':len(records), 'items': records} )
 
 
 
