@@ -99,3 +99,6 @@ por IRC o en un pad, ya veremos.
 También ayudaría hacer algunos diagramas y mock-ups.
 
 Si te aventuras a hacer mock-ups en html eso estaría buenísimo.
+
+
+Por otro lado ando viendo la estrategia descrita acá: http://stackoverflow.com/a/5682031
