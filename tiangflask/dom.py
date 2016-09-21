@@ -17,7 +17,22 @@ def pag_estandar(title, body):
 
 
 
-import api as tngs
+def anuncios_table(anuncios):
+    a_tr = [anuncio2tr(a) for a in anuncios]
+    return TABLE(
+        THEAD(
+            TH('titulo'), TH('descripcion'), TH('autor'), TH('fecha_creacion')),
+        TBODY(
+            *a_tr))
+
+
+def anuncio2tr(a):
+    return TR( TD( A( a['titulo'],
+                      href=str(a['_id']))),
+               TD( a['descripcion'] ),
+               TD( a['autor'] ),
+               TD( str(a['fecha_creacion'] )))
+
 
 def anuncio2div(a):
     header = [H1(a['titulo']),

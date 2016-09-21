@@ -11,7 +11,7 @@ app = Flask("tianguis")
 @app.route('/anuncios/publicados', methods=['POST', 'GET'])
 def anuncios_publicados():
     anuncios = tng.anuncios_publicados()
-    return dom.pag_estandar('anuncios publicados', lambda:dom.anuncio2div(tng.anuncios_publicados(tng.db)[0]))
+    return dom.pag_estandar('anuncios publicados', lambda:dom.anuncios_table(anuncios))
 
 
 @app.route('/anuncios/<recid>', methods=['POST', 'GET'])
