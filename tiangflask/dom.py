@@ -27,7 +27,7 @@ def anuncio2div(a):
                 "hasta %s" % a['fecha_expiracion'] if a['fecha_expiracion'] != None else "")
               ]
 
-    items = [item2html(i) for i in a['items']]
+    items = [item2div(i) for i in a['items']]
 
     return DIV(
         *header + \

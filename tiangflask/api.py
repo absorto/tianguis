@@ -7,23 +7,23 @@ db = client.tianguis
 
 
 
-def anuncio_guardar(anuncio, db):
+def anuncio_guardar(anuncio):
     return db.anuncios.save(anuncio)
 
     
 
-def anuncio_publicar( anuncio, db):
+def anuncio_publicar( anuncio ):
     anuncio['status'] = 'publicado'
     db.anuncios.save(anuncio)
 
 
 
-def anuncio_por_id(aid, db):
+def anuncio_por_id( aid ):
     return db.anuncios.find_one( ObjectId(aid) )
 
 
 
-def anuncios_publicados(db):
+def anuncios_publicados():
     publicados = []
     for a in db.anuncios.find({"status": "publicado"}):
         publicados.append(a)
@@ -70,12 +70,12 @@ def pedido_agrega_item( pedido, item ):
 
 
 
-def pedido_guardar( pedido, db):
+def pedido_guardar( pedido):
     return db.pedidos.save(pedido)
 
 
 
-def pedido_enviar(pedido, db):
+def pedido_enviar(pedido):
     pedido['status'] = 'enviado'
     pid = pedido_guardar(pedido)
     # agrega pid a su anuncio
@@ -90,13 +90,13 @@ def pedido_enviar(pedido, db):
     
 
 
-def pedido_cancelar(pedido, db):
+def pedido_cancelar(pedido):
     pedido['status'] = 'cancelado'
     return pedido_guardar(pedido,db)
 
 
 
-def pedido_por_id(pid, db):
+def pedido_por_id(pid):
     return db.pedidos.find_one( ObjectId(pid) )
 
 
