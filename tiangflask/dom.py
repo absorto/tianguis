@@ -1,4 +1,4 @@
-from lxml.html.builder import HTML, HEAD, BODY, H1, H2, P, A, TITLE, DIV, TH, THEAD, TBODY, TD, TR, TABLE
+from lxml.html.builder import HTML, HEAD, BODY, H1, H2, P, A, TITLE, LINK, SCRIPT, DIV, TH, THEAD, TBODY, TD, TR, TABLE
 from lxml.html import tostring
 
 from pprint import pformat
@@ -10,8 +10,9 @@ def pag_estandar(title, body):
             HEAD(
                 TITLE(title),
                 # aqui semantic
-                ),
-            BODY( body() )
+                LINK(type="text/css", rel="stylesheet", href="/static/semantic/dist/semantic.min.css"),
+                SCRIPT(src="/static/semantic/dist/semantic.min.js")),
+            BODY( body(), style="margin: 2em" )
         ),
         pretty_print=True)
 
@@ -19,11 +20,12 @@ def pag_estandar(title, body):
 
 def anuncios_table(anuncios):
     a_tr = [anuncio2tr(a) for a in anuncios]
-    return TABLE(
+    return TABLE( 
         THEAD(
             TH('titulo'), TH('descripcion'), TH('autor'), TH('fecha_creacion')),
         TBODY(
-            *a_tr))
+            *a_tr),
+        CLASS="ui right aligned table")
 
 
 def anuncio2tr(a):
