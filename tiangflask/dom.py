@@ -1,4 +1,4 @@
-from lxml.html.builder import HTML, HEAD, BODY, H1, H2, P, A, TITLE, LINK, SCRIPT, DIV, TH, THEAD, TBODY, TD, TR, TABLE
+from lxml.html.builder import HTML, HEAD, BODY, H1, H2, P, A, TITLE, LINK, SCRIPT, DIV, TH, THEAD, TBODY, TD, TR, TABLE, I, INPUT
 from lxml.html import tostring
 
 from pprint import pformat
@@ -12,10 +12,25 @@ def pag_estandar(title, body):
                 # aqui semantic
                 LINK(type="text/css", rel="stylesheet", href="/static/semantic/dist/semantic.min.css"),
                 SCRIPT(src="/static/semantic/dist/semantic.min.js")),
-            BODY( body(), style="margin: 2em" )
+            BODY( main_menu(), body(), style="margin: 2em" )
         ),
         pretty_print=True)
 
+
+
+def main_menu():
+    return DIV(
+        A("Anuncios", href="/anuncios/publicados", CLASS="item"),
+        A("Mis Anuncios", href="/anuncios/mios", CLASS="item"),
+        DIV(
+            DIV(
+                DIV(
+                    INPUT(placeholder="buscar...", type="text"),
+                    I(CLASS="search link icon"),
+                    CLASS="ui icon input"),
+                CLASS="ui menu"),
+            CLASS="item"),
+        CLASS="ui three item menu")
 
 
 def anuncios_table(anuncios):
