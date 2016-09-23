@@ -11,7 +11,8 @@ app = Flask("tianguis")
 @app.route('/anuncios/publicados', methods=['POST', 'GET'])
 def anuncios_publicados():
     anuncios = tng.anuncios_publicados()
-    return dom.pag_estandar('anuncios publicados', lambda:dom.anuncios_table(anuncios))
+    return dom.pag_estandar('anuncios publicados',
+                            lambda: dom.anuncios_table(anuncios))
 
 
 @app.route('/anuncios/<recid>', methods=['POST', 'GET'])
@@ -223,6 +224,7 @@ def login():
         </form>
     '''
 
+
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
@@ -231,7 +233,6 @@ def logout():
 
 # set the secret key.  keep this really secret:
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-
 
 
 if __name__ == '__main__':
