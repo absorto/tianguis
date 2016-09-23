@@ -20,8 +20,8 @@ def pag_estandar(title, body):
 
 def main_menu():
     return DIV(
-        A("Anuncios", href="/anuncios/publicados", CLASS="item"),
-        A("Mis Anuncios", href="/anuncios/mios", CLASS="item"),
+        A("Oferta", href="/oferta/", CLASS="item"),
+        A("Demanda", href="/demanda/", CLASS="item"),
         DIV(
             DIV(
                 DIV(
