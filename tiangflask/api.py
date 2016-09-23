@@ -10,7 +10,9 @@ db = client.tianguis
 def anuncio_guardar(anuncio):
     return db.anuncios.save(anuncio)
 
-    
+
+
+
 
 def anuncio_publicar( anuncio ):
     anuncio['status'] = 'publicado'
@@ -19,11 +21,17 @@ def anuncio_publicar( anuncio ):
 
 
 def anuncio_por_id( aid ):
+    """
+    devuelve un anuncio si le das un ID
+    """
     return db.anuncios.find_one( ObjectId(aid) )
 
 
 
 def anuncios_publicados():
+    """ 
+    lista de todos los anuncios publicados 
+    """
     publicados = []
     for a in db.anuncios.find({"status": "publicado"}):
         publicados.append(a)
