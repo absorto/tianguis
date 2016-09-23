@@ -25,7 +25,7 @@ def anuncios_table(anuncios):
             TH('titulo'), TH('descripcion'), TH('autor'), TH('fecha_creacion')),
         TBODY(
             *a_tr),
-        CLASS="ui right aligned table")
+        CLASS="ui center aligned table")
 
 
 def anuncio2tr(a):
