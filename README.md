@@ -67,6 +67,16 @@ $ source ~/environments/tiangflask/bin/activate
 pip install -r requirements.txt
 ```
 
+### Instalar Nodejs
+Descarga de [Nodejs](https://nodejs.org/en/download/) el binario que corresponda a tu arquitectura.
+
+```bash
+sudo su
+cd /usr/local
+tar --strip-components 1 -xvJf /home/rmejia/Downloads/node-v6.9.1-linux-x64.tar.xz
+npm install bower
+```
+
 ### Instalar las dependencias de JavaScript con bower
 ```bash
 mkdir static
@@ -103,3 +113,7 @@ Si te aventuras a hacer mock-ups en html eso estaría buenísimo.
 
 
 Por otro lado ando viendo la estrategia descrita acá: http://stackoverflow.com/a/5682031
+
+
+
+
