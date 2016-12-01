@@ -50,7 +50,7 @@ Recomiendo el uso de [virtualenv](https://virtualenv.pypa.io/en/stable/). Si usa
 Crear un ambiente virtual:
 
 ```bash
-$ virtualenv ~/environments/tiangflask
+$ virtualenv -p python3 ~/environments/tiangflask
 Running virtualenv 
 [...]
 Installing setuptools, pip...done.
@@ -67,7 +67,7 @@ $ source ~/environments/tiangflask/bin/activate
 pip install -r requirements.txt
 ```
 
-### Instalar Nodejs
+### Instalar Nodejs y bower
 Descarga de [Nodejs](https://nodejs.org/en/download/) el binario que corresponda a tu arquitectura.
 
 ```bash
@@ -81,9 +81,7 @@ npm install bower
 ```bash
 mkdir static
 cd static
-bower install jquery
-bower install tinymce
-bower install w2ui
+bower install semantic
 ```
 
 ### Mongodb
