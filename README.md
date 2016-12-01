@@ -45,7 +45,7 @@ cd tianguis/tiangflask
 ```
 
 ### Ambiente virtual
-Recomiendo el uso de [virtualenv](virtualenv). Si usas docker, vagrant o guix tal vez quieras saltarte a la sección de Dependencias de Python.
+Recomiendo el uso de [virtualenv](https://virtualenv.pypa.io/en/stable/). Si usas docker, vagrant o guix tal vez quieras saltarte a la sección de Dependencias de Python.
 
 Crear un ambiente virtual:
 
