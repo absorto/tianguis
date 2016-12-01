@@ -69,6 +69,7 @@ pip install -r requirements.txt
 
 ### Instalar las dependencias de JavaScript con bower
 ```bash
+mkdir static
 cd static
 bower install jquery
 bower install tinymce
