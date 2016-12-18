@@ -1,21 +1,23 @@
 from flask import Flask, session, redirect, url_for, escape, request, jsonify
 
-import api as tng
-import dom
+#import api as tng
+#import dom
+
+import model as tng
 
 from pprint import pformat
 
 app = Flask("tianguis")
 
 
-@app.route('/anuncios/publicados', methods=['POST', 'GET'])
+@app.route('/oferta', methods=['POST', 'GET'])
 def anuncios_publicados():
-    anuncios = tng.anuncios_publicados()
-    return dom.pag_estandar('anuncios publicados',
+    oferta = tng.Oferta.objects()
+    return dom.pag_estandar('Oferta',
                             lambda: dom.anuncios_table(anuncios))
 
 
-@app.route('/anuncios/<recid>', methods=['POST', 'GET'])
+@app.route('/anuncio/<recid>', methods=['POST', 'GET'])
 def oferta(recid):
     a = tng.anuncio_por_id(recid)
     return dom.pag_estandar('anuncio %s' % recid,
