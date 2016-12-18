@@ -64,7 +64,8 @@ class Anuncio(Document):
             THEAD(
                 TH('nombre'), TH('descripcion'), TH('precio'), TH('unidad')),
             TBODY(
-                *item_rows))
+                *item_rows),
+            CLASS="ui table")
 
     
     def as_div(self):
