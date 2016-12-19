@@ -9,11 +9,15 @@ from mongoengine import connect, Document, EmbeddedDocument, EmailField, \
 connect('tianguis')
 
 
-class User(Document):
+class Marchante(Document):
     email = EmailField(required=True)
     nombre = StringField(max_length=50)
     login = StringField(max_length=50)
 
+    def as_a(self):
+        return A( self.login,
+                  href="/marchante/%s" % str(self.pk))
+        
     def __repr__(self):
         return str(self.login)
 
@@ -35,13 +39,11 @@ class Item(EmbeddedDocument):
 
 
     def as_tr(self):
-        if not self.unidad:
-            self.unidad = ""
         return TR(TD( self.nombre ),
                   TD( self.descripcion ),
                   TD( "$%02.2d" % self.precio ),
-                  TD( self.unidad ))
-    
+                  TD( self.unidad if self.unidad != None else ""))
+
 
 class Anuncio(Document):
     """
@@ -49,7 +51,7 @@ class Anuncio(Document):
     anuncio que son ofertas y demandas. O sea, un anuncio es una
     oferta o una demanda.
     """
-    autor = ReferenceField(User)
+    marchante = ReferenceField(Marchante)
     descripcion = StringField(required=True)
     titulo = StringField(required=True)
     fecha_expiracion = DateTimeField(required=True)
@@ -58,6 +60,14 @@ class Anuncio(Document):
 
     meta = {'allow_inheritance': True}
 
+    def as_div(self):
+        return DIV(H1(self.titulo),
+                   P(self.descripcion),
+                   P('publicado por ', self.marchante.as_a()),
+                   P('disponible desde %s' % self.fecha_creacion,
+                     " hasta %s" % self.fecha_expiracion if self.fecha_expiracion != None else ""),
+                   self.items_table())
+    
     def items_table(self):
         item_rows = [i.as_tr() for i in self.items]
         return TABLE(
@@ -68,20 +78,11 @@ class Anuncio(Document):
             CLASS="ui table")
 
     
-    def as_div(self):
-        return DIV(H1(self.titulo),
-                   P(self.descripcion),
-                   P('publicado por %s' % self.autor),
-                   P('disponible desde %s' % self.fecha_creacion,
-                     "hasta %s" % self.fecha_expiracion if self.fecha_expiracion != None else ""),
-                   self.items_table())
-    
-
     def as_tr(self):
         return TR( TD( A( self.titulo,
                           href="/anuncio/%s" % str(self.pk))),
                    TD( self.descripcion ),
-                   TD( str(self.autor.login) ),
+                   TD( self.marchante.as_a() ),
                    TD( str(self.fecha_creacion)))
 
     
@@ -107,7 +108,7 @@ def oferta_table():
     trs = [o.as_tr() for o in Oferta.objects()]
     return TABLE( 
         THEAD(
-            TH('titulo'), TH('descripcion'), TH('autor'), TH('fecha_creacion')),
+            TH('titulo'), TH('descripcion'), TH('marchante'), TH('fecha_creacion')),
         TBODY(
             *trs),
         CLASS="ui center aligned table")
@@ -118,7 +119,7 @@ def demanda_table():
     trs = [o.as_tr() for o in Demanda.objects()]
     return TABLE( 
         THEAD(
-            TH('titulo'), TH('descripcion'), TH('autor'), TH('fecha_creacion')),
+            TH('titulo'), TH('descripcion'), TH('marchante'), TH('fecha_creacion')),
         TBODY(
             *trs),
         CLASS="ui center aligned table")
