@@ -1,6 +1,7 @@
 # coding: utf-8
 from lxml.html.builder import HTML, HEAD, BODY, H1, H2, P, A, TITLE, \
-    LINK, SCRIPT, DIV, TH, THEAD, TBODY, TD, TR, TABLE, I, INPUT
+    LINK, SCRIPT, DIV, TH, THEAD, TBODY, TD, TR, TABLE, I, INPUT, FORM, BUTTON, \
+    LABEL, TEXTAREA
 from datetime import datetime
 
 from mongoengine import connect, Document, EmbeddedDocument, EmailField, \
@@ -17,7 +18,7 @@ class Marchante(Document):
     def as_a(self):
         return A( self.login,
                   href="/marchante/%s" % str(self.pk))
-        
+
     def __repr__(self):
         return str(self.login)
 
@@ -60,6 +61,21 @@ class Anuncio(Document):
 
     meta = {'allow_inheritance': True}
 
+    def edit_form(self):
+        return DIV(FORM(DIV(LABEL(u"Título"),
+                            INPUT(TYPE="text", name="titulo", placeholder=u"título"),
+                            CLASS="field"),
+                        DIV(LABEL(u"Descripción"),
+                            TEXTAREA(name="titulo", placeholder=u"describe acá la vendimia", rows="2"),
+                            CLASS="field"),
+                        DIV(LABEL(u"Título"),
+                            INPUT(TYPE="text", name="titulo", placeholder=u"título"),
+                            CLASS="field"),                        
+                        BUTTON('crear', CLASS="ui primary button", TYPE="submit"),
+                        method="POST",
+                        CLASS="ui form"),
+                   CLASS="ui input")
+
     def as_div(self):
         return DIV(H1(self.titulo),
                    P(self.descripcion),
@@ -67,7 +83,7 @@ class Anuncio(Document):
                    P('disponible desde %s' % self.fecha_creacion,
                      " hasta %s" % self.fecha_expiracion if self.fecha_expiracion != None else ""),
                    self.items_table())
-    
+
     def items_table(self):
         item_rows = [i.as_tr() for i in self.items]
         return TABLE(
@@ -77,7 +93,7 @@ class Anuncio(Document):
                 *item_rows),
             CLASS="ui table")
 
-    
+
     def as_tr(self):
         return TR( TD( A( self.titulo,
                           href="/anuncio/%s" % str(self.pk))),
@@ -85,7 +101,7 @@ class Anuncio(Document):
                    TD( self.marchante.as_a() ),
                    TD( str(self.fecha_creacion)))
 
-    
+
 
 class Oferta(Anuncio):
     """
@@ -106,20 +122,22 @@ class Demanda(Anuncio):
 
 def oferta_table():
     trs = [o.as_tr() for o in Oferta.objects()]
-    return TABLE( 
-        THEAD(
-            TH('titulo'), TH('descripcion'), TH('marchante'), TH('fecha_creacion')),
-        TBODY(
-            *trs),
-        CLASS="ui center aligned table")
+    return DIV(A("crear oferta", href="/oferta/crear"),
+               TABLE(
+                   THEAD(
+                       TH('titulo'), TH('descripcion'), TH('marchante'), TH('fecha_creacion')),
+                   TBODY(
+                       *trs),
+                   CLASS="ui center aligned table"))
 
 
 
 def demanda_table():
     trs = [o.as_tr() for o in Demanda.objects()]
-    return TABLE( 
-        THEAD(
-            TH('titulo'), TH('descripcion'), TH('marchante'), TH('fecha_creacion')),
-        TBODY(
-            *trs),
-        CLASS="ui center aligned table")
+    return DIV(A("crear demanda", href="/demanda/crear"),
+               TABLE(
+                   THEAD(
+                       TH('titulo'), TH('descripcion'), TH('marchante'), TH('fecha_creacion')),
+                   TBODY(
+                       *trs),
+                   CLASS="ui center aligned table"))

@@ -12,6 +12,13 @@ def oferta():
     return dom.pag_estandar('Oferta',
                             lambda: tng.oferta_table())
 
+@app.route('/oferta/crear', methods=['POST', 'GET'])
+def crear_oferta():
+    o = tng.Oferta()
+    return dom.pag_estandar('Oferta',
+                            lambda: o.edit_form())
+
+
 @app.route('/demanda/', methods=['POST', 'GET'])
 def demanda():
     return dom.pag_estandar('Demanda',
