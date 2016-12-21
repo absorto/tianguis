@@ -2,11 +2,10 @@
 from lxml.html.builder import HTML, HEAD, BODY, H1, H2, P, A, TITLE, \
     LINK, SCRIPT, DIV, TH, THEAD, TBODY, TD, TR, TABLE, I, INPUT, FORM, BUTTON, \
     LABEL, TEXTAREA
-from datetime import datetime
-
 from mongoengine import connect, Document, EmbeddedDocument, EmailField, \
     StringField, DecimalField, ReferenceField, DateTimeField, ListField, \
     EmbeddedDocumentField
+import datetime
 connect('tianguis')
 
 
@@ -16,11 +15,12 @@ class Marchante(Document):
     login = StringField(max_length=50)
 
     def as_a(self):
-        return A( self.login,
-                  href="/marchante/%s" % str(self.pk))
+        return A(self.login,
+                 href="/marchante/%s" % str(self.pk))
 
     def __repr__(self):
         return str(self.login)
+
 
 class Item(EmbeddedDocument):
     """
@@ -31,19 +31,17 @@ class Item(EmbeddedDocument):
     unidad = StringField()
     precio = DecimalField(required=True)
 
-
     def as_div(self):
         return DIV(H2(self.nombre),
                    P(self.descripcion,
                      "$%02.2d" % self.precio,
                      self.unidad))
 
-
     def as_tr(self):
-        return TR(TD( self.nombre ),
-                  TD( self.descripcion ),
-                  TD( "$%02.2d" % self.precio ),
-                  TD( self.unidad if self.unidad != None else ""))
+        return TR(TD(self.nombre),
+                  TD(self.descripcion),
+                  TD("$%02.2d" % self.precio),
+                  TD(self.unidad if self.unidad is not None else ""))
 
 
 class Anuncio(Document):
@@ -55,33 +53,57 @@ class Anuncio(Document):
     marchante = ReferenceField(Marchante)
     descripcion = StringField(required=True)
     titulo = StringField(required=True)
-    fecha_expiracion = DateTimeField(required=True)
-    fecha_creacion = DateTimeField(required=True)
+    fecha_inicio = DateTimeField(required=False,
+                                 default=datetime.datetime.now())
+    fecha_fin = DateTimeField(required=False,
+                              default=datetime.datetime.now()
+                              + datetime.timedelta(days=5))
     items = ListField(EmbeddedDocumentField(Item))
 
     meta = {'allow_inheritance': True}
 
     def edit_form(self):
         return DIV(FORM(DIV(LABEL(u"Título"),
-                            INPUT(TYPE="text", name="titulo", placeholder=u"título"),
+                            INPUT(TYPE="text",
+                                  name="titulo",
+                                  placeholder=u"título",
+                                  value="" if self.titulo is None
+                                  else self.titulo),
                             CLASS="field"),
                         DIV(LABEL(u"Descripción"),
-                            TEXTAREA(name="titulo", placeholder=u"describe acá la vendimia", rows="2"),
+                            TEXTAREA(name="descripcion",
+                                     placeholder=u"describe acá la vendimia",
+                                     rows="2",
+                                     value="" if self.descripcion is None
+                                     else self.descripcion),
                             CLASS="field"),
-                        DIV(LABEL(u"Título"),
-                            INPUT(TYPE="text", name="titulo", placeholder=u"título"),
-                            CLASS="field"),                        
-                        BUTTON('crear', CLASS="ui primary button", TYPE="submit"),
+                        DIV(LABEL(u"Desde"),
+                            INPUT(TYPE="text",
+                                  name="fecha_inicio",
+                                  placeholder=u"título",
+                                  value=""),
+                            CLASS="field"),
+                        DIV(LABEL(u"Hasta"),
+                            INPUT(TYPE="text",
+                                  name="fecha_fin",
+                                  placeholder=u"título"),
+                            CLASS="field"),
+                        BUTTON('guardar',
+                               CLASS="ui primary button",
+                               TYPE="submit"),
                         method="POST",
                         CLASS="ui form"),
                    CLASS="ui input")
 
     def as_div(self):
-        return DIV(H1(self.titulo),
+        return DIV(A("editar",
+                     href="/oferta/editar/%s" % str(self.pk)),
+                   H1(self.titulo),
                    P(self.descripcion),
                    P('publicado por ', self.marchante.as_a()),
-                   P('disponible desde %s' % self.fecha_creacion,
-                     " hasta %s" % self.fecha_expiracion if self.fecha_expiracion != None else ""),
+                   P('disponible desde %s' % self.fecha_inicio,
+                     " hasta %s" % self.fecha_fin
+                     if self.fecha_fin is not None else ""),
                    self.items_table())
 
     def items_table(self):
@@ -93,14 +115,12 @@ class Anuncio(Document):
                 *item_rows),
             CLASS="ui table")
 
-
     def as_tr(self):
-        return TR( TD( A( self.titulo,
-                          href="/anuncio/%s" % str(self.pk))),
-                   TD( self.descripcion ),
-                   TD( self.marchante.as_a() ),
-                   TD( str(self.fecha_creacion)))
-
+        return TR(TD(A(self.titulo,
+                       href="/anuncio/%s" % str(self.pk))),
+                  TD(self.descripcion),
+                  TD(self.marchante.as_a()),
+                  TD(str(self.fecha_inicio)))
 
 
 class Oferta(Anuncio):
@@ -122,14 +142,16 @@ class Demanda(Anuncio):
 
 def oferta_table():
     trs = [o.as_tr() for o in Oferta.objects()]
-    return DIV(A("crear oferta", href="/oferta/crear"),
+    return DIV(A("crear oferta", href="/oferta/editar/nueva"),
                TABLE(
                    THEAD(
-                       TH('titulo'), TH('descripcion'), TH('marchante'), TH('fecha_creacion')),
+                       TH('titulo'),
+                       TH('descripcion'),
+                       TH('marchante'),
+                       TH('fecha_inicio')),
                    TBODY(
                        *trs),
                    CLASS="ui center aligned table"))
-
 
 
 def demanda_table():
@@ -137,7 +159,10 @@ def demanda_table():
     return DIV(A("crear demanda", href="/demanda/crear"),
                TABLE(
                    THEAD(
-                       TH('titulo'), TH('descripcion'), TH('marchante'), TH('fecha_creacion')),
+                       TH('titulo'),
+                       TH('descripcion'),
+                       TH('marchante'),
+                       TH('fecha_inicio')),
                    TBODY(
                        *trs),
                    CLASS="ui center aligned table"))
