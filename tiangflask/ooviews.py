@@ -44,6 +44,28 @@ def anuncio(recid):
     return dom.pag_estandar('anuncio %s' % recid,
                             lambda: a.as_div())
 
+
+
+@app.route('/anuncio/<recid>/item/agrega', methods=['POST', 'GET'])
+def anuncio_agrega_item(recid):
+    a = tng.Anuncio.objects.with_id(recid)
+
+    if request.method == 'POST':
+        i = tng.Item()
+        i.nombre = request.form['nombre']
+        i.descripcion = request.form['descripcion']
+        i.precio = float(request.form['precio'])
+        i.unidad = request.form['unidad']
+        a.items.append(i)
+        a.save()
+        return redirect("/anuncio/%s" % a.pk)
+    else:
+        i = tng.Item()
+
+    return dom.pag_estandar('anuncio %s' % recid,
+                            lambda: a.as_div(item=i))
+
+
 # set the secret key.  keep this really secret:
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 

@@ -1,10 +1,11 @@
 # coding: utf-8
 from lxml.html.builder import HTML, HEAD, BODY, H1, H2, P, A, TITLE, \
     LINK, SCRIPT, DIV, TH, THEAD, TBODY, TD, TR, TABLE, I, INPUT, FORM, BUTTON, \
-    LABEL, TEXTAREA
+    LABEL, TEXTAREA, H3
 from mongoengine import connect, Document, EmbeddedDocument, EmailField, \
     StringField, DecimalField, ReferenceField, DateTimeField, ListField, \
     EmbeddedDocumentField
+import json
 import datetime
 connect('tianguis')
 
@@ -42,6 +43,43 @@ class Item(EmbeddedDocument):
                   TD(self.descripcion),
                   TD("$%02.2d" % self.precio),
                   TD(self.unidad if self.unidad is not None else ""))
+
+    def edit_form(self):
+        rules = {'fields': {'nombre': {'identifier': 'nombre',
+                                       'rules': [{'type': 'empty',
+                                                  'prompt': 'Por favor nombre su item'}]}}}
+        script = "$('.ui.form').form(%s)" % json.dumps(rules)
+        return DIV(SCRIPT(script),
+                   FORM(DIV(LABEL(u"Nombre"),
+                            INPUT(TYPE="text",
+                                  name="nombre",
+                                  placeholder=u"nombre",
+                                  value="" if self.nombre is None
+                                  else self.titulo),
+                            CLASS="field"),
+                        DIV(LABEL(u"Descripción"),
+                            TEXTAREA("" if self.descripcion is None
+                                     else self.descripcion, name="descripcion",
+                                     placeholder=u"describe acá el item",
+                                     rows="2"),
+                            CLASS="field"),
+                        DIV(LABEL(u"precio"),
+                            INPUT(TYPE="text",
+                                  name="precio",
+                                  placeholder=u"precio",
+                                  value=""),
+                            CLASS="field"),
+                        DIV(LABEL(u"unidad"),
+                            INPUT(TYPE="text",
+                                  name="unidad",
+                                  placeholder=u"título"),
+                            CLASS="field"),
+                        DIV('agregar',
+                            CLASS="ui primary submit button"),
+                        DIV(CLASS="ui error message"),
+                        method="POST",
+                        CLASS="ui form"),
+                   CLASS="ui input")
 
 
 class Anuncio(Document):
@@ -94,16 +132,20 @@ class Anuncio(Document):
                         CLASS="ui form"),
                    CLASS="ui input")
 
-    def as_div(self):
-        return DIV(A("editar",
-                     href="/anuncio/editar/%s" % str(self.pk)),
-                   H1(self.titulo),
-                   P(self.descripcion),
-                   P('publicado por ', self.marchante.as_a()),
-                   P('disponible desde %s' % self.fecha_inicio,
-                     " hasta %s" % self.fecha_fin
-                     if self.fecha_fin is not None else ""),
-                   self.items_table())
+    def as_div(self, item=None):
+        return DIV(H3(self.titulo, CLASS="ui top attached header"),
+                   DIV(A("editar",
+                         href="/anuncio/editar/%s" % str(self.pk)),
+                       P(self.descripcion),
+                       P('publicado por ', self.marchante.as_a()),
+                       P('disponible desde %s' % self.fecha_inicio,
+                         " hasta %s" % self.fecha_fin
+                         if self.fecha_fin is not None else ""),
+                       A("agrega item", href="%s/item/agrega" % self.pk)
+                       if item is None
+                       else item.edit_form(),
+                       self.items_table(),
+                       CLASS='ui attached segment'))
 
     def items_table(self):
         item_rows = [i.as_tr() for i in self.items]

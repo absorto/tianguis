@@ -10,6 +10,7 @@ def pag_estandar(title, body):
             HEAD(
                 TITLE(title),
                 # aqui semantic
+                SCRIPT(src="/static/bower_components/jquery/dist/jquery.min.js"),
                 LINK(type="text/css", rel="stylesheet", href="/static/semantic/dist/semantic.min.css"),
                 SCRIPT(src="/static/semantic/dist/semantic.min.js")),
             BODY( main_menu(), body(), style="margin: 2em" )
