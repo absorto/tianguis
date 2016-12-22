@@ -71,11 +71,10 @@ class Anuncio(Document):
                                   else self.titulo),
                             CLASS="field"),
                         DIV(LABEL(u"Descripción"),
-                            TEXTAREA(name="descripcion",
+                            TEXTAREA("" if self.descripcion is None
+                                     else self.descripcion, name="descripcion",
                                      placeholder=u"describe acá la vendimia",
-                                     rows="2",
-                                     value="" if self.descripcion is None
-                                     else self.descripcion),
+                                     rows="2"),
                             CLASS="field"),
                         DIV(LABEL(u"Desde"),
                             INPUT(TYPE="text",
