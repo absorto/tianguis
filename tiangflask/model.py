@@ -96,7 +96,7 @@ class Anuncio(Document):
 
     def as_div(self):
         return DIV(A("editar",
-                     href="/oferta/editar/%s" % str(self.pk)),
+                     href="/anuncio/editar/%s" % str(self.pk)),
                    H1(self.titulo),
                    P(self.descripcion),
                    P('publicado por ', self.marchante.as_a()),
@@ -141,7 +141,7 @@ class Demanda(Anuncio):
 
 def oferta_table():
     trs = [o.as_tr() for o in Oferta.objects()]
-    return DIV(A("crear oferta", href="/oferta/editar/nueva"),
+    return DIV(A("crear oferta", href="/anuncio/editar/nueva"),
                TABLE(
                    THEAD(
                        TH('titulo'),

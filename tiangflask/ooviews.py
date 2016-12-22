@@ -12,7 +12,7 @@ def oferta():
                             lambda: tng.oferta_table())
 
 
-@app.route('/oferta/editar/<recid>', methods=['POST', 'GET'])
+@app.route('/anuncio/editar/<recid>', methods=['POST', 'GET'])
 def crear_oferta(recid):
     if recid == 'nueva':
         o = tng.Oferta()
