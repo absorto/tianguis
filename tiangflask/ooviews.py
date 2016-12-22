@@ -26,6 +26,7 @@ def crear_oferta(recid):
         o.descripcion = request.form['descripcion']
         o.marchante = u
         o.save()
+        return redirect("/anuncio/%s" % o.pk)
 
     return dom.pag_estandar('Oferta',
                             lambda: o.edit_form())
