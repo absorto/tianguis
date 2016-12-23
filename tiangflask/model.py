@@ -45,12 +45,34 @@ class Item(EmbeddedDocument):
                   TD(self.unidad if self.unidad is not None else ""))
 
     def edit_form(self):
-        rules = {'fields': {'nombre': {'identifier': 'nombre',
-                                       'rules': [{'type': 'empty',
-                                                  'prompt': 'Por favor nombre su item'}]}}}
+        rules = {
+            'fields': {
+                'nombre': {
+                    'identifier': 'nombre',
+                    'rules': [
+                        {'type': 'empty',
+                         'prompt': 'Por favor nombre su item'}
+                    ]
+                },
+                'descripcion': {
+                    'identifier': 'descripcion',
+                    'rules': [
+                        {'type': 'empty',
+                         'prompt': 'Por favor describa su item'}
+                    ]
+                },
+                'precio': {
+                    'identifier': 'precio',
+                    'rules': [
+                        {'type': 'decimal',
+                         'prompt': 'Comercio con moneda'}
+                    ]
+                }
+            }
+        }
+
         script = "$('.ui.form').form(%s)" % json.dumps(rules)
-        return DIV(SCRIPT(script),
-                   FORM(DIV(LABEL(u"Nombre"),
+        return DIV(FORM(DIV(LABEL(u"Nombre"),
                             INPUT(TYPE="text",
                                   name="nombre",
                                   placeholder=u"nombre",
@@ -79,7 +101,7 @@ class Item(EmbeddedDocument):
                         DIV(CLASS="ui error message"),
                         method="POST",
                         CLASS="ui form"),
-                   CLASS="ui input")
+                   SCRIPT(script))
 
 
 class Anuncio(Document):
