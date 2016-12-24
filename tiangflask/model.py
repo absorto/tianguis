@@ -142,7 +142,7 @@ class Anuncio(Document):
                             CLASS="field"),
                         DIV(LABEL(u"Desde"),
                             INPUT(TYPE="text",
-                                  name="fecha_inicio",
+                                  name="fecha_inicio",  # https://github.com/mdehoog/Semantic-UI-Calendar
                                   placeholder=u"título",
                                   value=""),
                             CLASS="field"),
