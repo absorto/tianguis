@@ -1,4 +1,4 @@
-from lxml.html.builder import HTML, HEAD, BODY, H1, H2, P, A, TITLE, LINK, SCRIPT, DIV, TH, THEAD, TBODY, TD, TR, TABLE, I, INPUT
+from lxml.html.builder import HTML, HEAD, BODY, H1, H2, P, A, TITLE, LINK, SCRIPT, DIV, TH, THEAD, TBODY, TD, TR, TABLE, I, INPUT, SPAN
 from lxml.html import tostring
 
 from pprint import pformat
@@ -12,7 +12,10 @@ def pag_estandar(title, body):
                 # aqui semantic
                 SCRIPT(src="/static/bower_components/jquery/dist/jquery.min.js"),
                 LINK(type="text/css", rel="stylesheet", href="/static/semantic/dist/semantic.min.css"),
-                SCRIPT(src="/static/semantic/dist/semantic.min.js")),
+                LINK(type="text/css", rel="stylesheet", href="static/semantic/dist/components/dropdown.min.css"),
+                SCRIPT(src="/static/semantic/dist/semantic.min.js"),
+                SCRIPT(src="/static/semantic/dist/components/dropdown.min.js")
+            ),
             BODY( main_menu(), body(), style="margin: 2em" )
         ),
         pretty_print=True)
@@ -20,23 +23,18 @@ def pag_estandar(title, body):
 
 
 def main_menu():
-    return DIV(
-        A("Oferta", href="/oferta/", CLASS="item"),
-        A("Demanda", href="/demanda/", CLASS="item"),
-        DIV(
-            DIV(
-                DIV(
-                    INPUT(placeholder="buscar...", type="text"),
-                    I(CLASS="search link icon"),
-                    CLASS="ui icon input"),
-                CLASS="ui menu"),
-            CLASS="item"),
-        CLASS="ui three item menu")
-
+    return DIV(DIV(SPAN("Oferta", CLASS="text"), I(CLASS="dropdown icon"),
+                   DIV(A("ver ofertas", href="/oferta/", CLASS="item"),
+                       A("crear oferta", href="/anuncio/editar/nueva", CLASS="item"),
+                       A("buscar", href="/oferta/buscar", CLASS="item"),
+                       CLASS="menu"),
+                   CLASS="ui pointing dropdown link item"),
+               SCRIPT("$('.ui.dropdown').dropdown({on: 'hover'});"),
+               CLASS="ui menu")
 
 def anuncios_table(anuncios):
     a_tr = [anuncio2tr(a) for a in anuncios]
-    return TABLE( 
+    return TABLE(
         THEAD(
             TH('titulo'), TH('descripcion'), TH('autor'), TH('fecha_creacion')),
         TBODY(
@@ -73,7 +71,7 @@ def item2div(i):
                P(i['descripcion'],
                  "$%02.2d" % i['precio'],
                  i['unidad']))
-        
+
 
 
 def item2tr(i):
