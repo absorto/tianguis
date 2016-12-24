@@ -12,7 +12,7 @@ def pag_estandar(title, body):
                 # aqui semantic
                 SCRIPT(src="/static/bower_components/jquery/dist/jquery.min.js"),
                 LINK(type="text/css", rel="stylesheet", href="/static/semantic/dist/semantic.min.css"),
-                LINK(type="text/css", rel="stylesheet", href="static/semantic/dist/components/dropdown.min.css"),
+                LINK(type="text/css", rel="stylesheet", href="/static/semantic/dist/components/dropdown.min.css"),
                 SCRIPT(src="/static/semantic/dist/semantic.min.js"),
                 SCRIPT(src="/static/semantic/dist/components/dropdown.min.js")
             ),
