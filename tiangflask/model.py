@@ -218,8 +218,7 @@ class Demanda(Anuncio):
 
 def oferta_table():
     trs = [o.as_tr() for o in Oferta.objects()]
-    return DIV(A("crear oferta", href="/anuncio/editar/nueva"),
-               TABLE(
+    return DIV(TABLE(
                    THEAD(
                        TH('titulo'),
                        TH('descripcion'),
