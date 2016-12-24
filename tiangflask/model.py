@@ -32,6 +32,9 @@ class Item(EmbeddedDocument):
     unidad = StringField()
     precio = DecimalField(required=True)
 
+    def __repr__(self):
+        return u"<item %s>" % self.nombre
+
     def as_div(self):
         return DIV(H2(self.nombre),
                    P(self.descripcion,
@@ -41,8 +44,9 @@ class Item(EmbeddedDocument):
     def as_tr(self):
         return TR(TD(self.nombre),
                   TD(self.descripcion),
-                  TD("$%02.2d" % self.precio),
-                  TD(self.unidad if self.unidad is not None else ""))
+                  TD("$%02.2f" % self.precio),
+                  TD(self.unidad if self.unidad is not None else ""),
+                  TD(A('x', href="item/%s/elimina" % self)))
 
     def edit_form(self):
         rules = {
@@ -170,10 +174,19 @@ class Anuncio(Document):
                        CLASS='ui attached segment'))
 
     def items_table(self):
-        item_rows = [i.as_tr() for i in self.items]
+        item_rows = []
+        for i in self.items:
+            item_rows.append(TR(TD(i.nombre),
+                                TD(i.descripcion),
+                                TD("$%02.2f" % i.precio),
+                                TD(i.unidad if i.unidad is not None else ""),
+                                TD(A('x',
+                                     href="/anuncio/%s/item/%s/elimina"
+                                     % (self.pk,self.items.index(i))))))
         return TABLE(
             THEAD(
-                TH('nombre'), TH('descripcion'), TH('precio'), TH('unidad')),
+                TH('nombre'), TH('descripcion'),
+                TH('precio'), TH('unidad'), TH()),
             TBODY(
                 *item_rows),
             CLASS="ui table")

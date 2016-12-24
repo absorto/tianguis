@@ -45,7 +45,6 @@ def anuncio(recid):
                             lambda: a.as_div())
 
 
-
 @app.route('/anuncio/<recid>/item/agrega', methods=['POST', 'GET'])
 def anuncio_agrega_item(recid):
     a = tng.Anuncio.objects.with_id(recid)
@@ -64,6 +63,14 @@ def anuncio_agrega_item(recid):
 
     return dom.pag_estandar('anuncio %s' % recid,
                             lambda: a.as_div(item=i))
+
+
+@app.route('/anuncio/<recid>/item/<itemid>/elimina', methods=['POST', 'GET'])
+def anuncio_elimina_item(recid, itemid):
+    a = tng.Anuncio.objects.with_id(recid)
+    del(a.items[int(itemid)])
+    a.save()
+    return redirect("/anuncio/%s" % a.pk)
 
 
 # set the secret key.  keep this really secret:
