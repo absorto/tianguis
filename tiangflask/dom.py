@@ -4,7 +4,7 @@ from lxml.html import tostring
 from pprint import pformat
 
 
-def pag_estandar(title, body):
+def pag_estandar(title, body, session):
     return tostring(
         HTML(
             HEAD(
@@ -16,19 +16,25 @@ def pag_estandar(title, body):
                 SCRIPT(src="/static/semantic/dist/semantic.min.js"),
                 SCRIPT(src="/static/semantic/dist/components/dropdown.min.js")
             ),
-            BODY( main_menu(), body(), style="margin: 2em" )
+            BODY(main_menu(session), body(), style="margin: 2em" )
         ),
         pretty_print=True)
 
+def a_login(session):
+    if 'username' in session:
+        u = session['username']
+        return A("logout %s" % u, href="/logout", CLASS="item")
+    else:
+        return A("login", href="/login", CLASS="item")
 
-
-def main_menu():
+def main_menu(session):
     return DIV(DIV(SPAN("Oferta", CLASS="text"), I(CLASS="dropdown icon"),
                    DIV(A("ver ofertas", href="/oferta/", CLASS="item"),
                        A("crear oferta", href="/anuncio/editar/nueva", CLASS="item"),
                        A("buscar", href="/oferta/buscar", CLASS="item"),
                        CLASS="menu"),
                    CLASS="ui pointing dropdown link item"),
+               a_login(session),
                SCRIPT("$('.ui.dropdown').dropdown({on: 'hover'});"),
                CLASS="ui menu")
 

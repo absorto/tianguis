@@ -10,6 +10,10 @@ import datetime
 connect('tianguis')
 
 
+def marchante_by_login(login):
+        return Marchante.objects.filter(login=login).first()
+
+
 class Marchante(Document):
     email = EmailField(required=True)
     nombre = StringField(max_length=50)
@@ -19,8 +23,44 @@ class Marchante(Document):
         return A(self.login,
                  href="/marchante/%s" % str(self.pk))
 
+    def login_form(self):
+        rules = {
+            'fields': {
+                'username': {
+                    'identifier': 'username',
+                    'rules': [
+                        {'type': 'empty',
+                         'prompt': 'identifíquese con un nombre de usuario'}
+                    ]
+                },
+                'pass': {
+                    'identifier': 'pass',
+                    'rules': [
+                        {'type': 'empty',
+                         'prompt': 'y el pass?'}
+                    ]
+                },
+            }
+        }
+
+        script = "$('.ui.form').form(%s)" % json.dumps(rules)
+        return DIV(FORM(DIV(LABEL(u"Nombre de usuario"),
+                            INPUT(TYPE="text",
+                                  name="username"),
+                            CLASS="field"),
+                        DIV(LABEL(u"Contraseña"),
+                            INPUT(TYPE="password",
+                                  name="pass"),
+                            CLASS="field"),
+                        DIV('login',
+                            CLASS="ui primary submit button"),
+                        DIV(CLASS="ui error message"),
+                        method="POST",
+                        CLASS="ui form"),
+                   SCRIPT(script))
+
     def __repr__(self):
-        return str(self.login)
+        return "<marchante %s>" % self.login
 
 
 class Item(EmbeddedDocument):

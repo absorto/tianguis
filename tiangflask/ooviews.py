@@ -9,7 +9,8 @@ app = Flask("tianguis")
 @app.route('/oferta/', methods=['POST', 'GET'])
 def oferta():
     return dom.pag_estandar('Oferta',
-                            lambda: tng.oferta_table())
+                            lambda: tng.oferta_table(),
+                            session)
 
 
 @app.route('/anuncio/editar/<recid>', methods=['POST', 'GET'])
@@ -20,8 +21,7 @@ def crear_oferta(recid):
         o = tng.Oferta.objects.with_id(recid)
 
     if request.method == 'POST':
-        u = tng.Marchante(login='rgh', email='rgh@example.com')
-        u.save()
+        u = tng.marchante_by_login(session['username'])
         o.titulo = request.form['titulo']
         o.descripcion = request.form['descripcion']
         o.marchante = u
@@ -29,20 +29,23 @@ def crear_oferta(recid):
         return redirect("/anuncio/%s" % o.pk)
 
     return dom.pag_estandar('Oferta',
-                            lambda: o.edit_form())
+                            lambda: o.edit_form(),
+                            session)
 
 
 @app.route('/demanda/', methods=['POST', 'GET'])
 def demanda():
     return dom.pag_estandar('Demanda',
-                            lambda: tng.demanda_table())
+                            lambda: tng.demanda_table(),
+                            session)
 
 
 @app.route('/anuncio/<recid>', methods=['POST', 'GET'])
 def anuncio(recid):
     a = tng.Anuncio.objects.with_id(recid)
     return dom.pag_estandar('anuncio %s' % recid,
-                            lambda: a.as_div())
+                            lambda: a.as_div(),
+                            session)
 
 
 @app.route('/anuncio/<recid>/item/agrega', methods=['POST', 'GET'])
@@ -62,7 +65,8 @@ def anuncio_agrega_item(recid):
         i = tng.Item()
 
     return dom.pag_estandar('anuncio %s' % recid,
-                            lambda: a.as_div(item=i))
+                            lambda: a.as_div(item=i),
+                            session)
 
 
 @app.route('/anuncio/<recid>/item/<itemid>/elimina', methods=['POST', 'GET'])
@@ -71,6 +75,35 @@ def anuncio_elimina_item(recid, itemid):
     del(a.items[int(itemid)])
     a.save()
     return redirect("/anuncio/%s" % a.pk)
+
+
+# Login on openid Ref:                                                           #
+# http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-v-user-logins #
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        session['username'] = request.form['username']
+        return redirect(url_for('oferta'))
+
+    u = tng.Marchante()
+    return dom.pag_estandar('login',
+                            lambda: u.login_form(),
+                            session)
+    
+    # return '''
+    #     <form action="" method="post">
+    #         <p><input type=text name=username>
+    #         <p><input type=submit value=Login>
+    #     </form>
+    # '''
+
+
+@app.route('/logout')
+def logout():
+    # remove the username from the session if it's there
+    session.pop('username', None)
+    return redirect(url_for('oferta'))
 
 
 # set the secret key.  keep this really secret:
